@@ -21,6 +21,6 @@
     </dependency>
   </dependencies>
   <build>
-    <finalName>rjxy.ems</finalName>
+    <finalName>ems</finalName>
   </build>
 </project>
