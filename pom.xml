@@ -81,8 +81,14 @@
     	<artifactId>hibernate-commons-annotations</artifactId>
     	<version>5.0.1.Final</version>
     </dependency>
-<!--  -->
+<!-- mysql -->
 
+
+  	<dependency>
+  		<groupId>mysql</groupId>
+  		<artifactId>mysql-connector-java</artifactId>
+  		<version>5.1.26</version>
+  	</dependency>
   </dependencies>
   <build>
     <finalName>ems</finalName>
