@@ -12,6 +12,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -78,12 +79,12 @@ public class Teacher implements Serializable {
     private Date regdate;
     @Column(name = "roleid")
     private String roleid;
-    @OneToMany(mappedBy = "teacher")
+    @OneToMany(mappedBy = "teacher",fetch=FetchType.EAGER)
     private Collection<Termcourse> termcourseCollection;
     @JoinColumn(name = "college_id", referencedColumnName = "id")
     @ManyToOne
     private College college;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "teacher")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "teacher",fetch=FetchType.EAGER)
     private Collection<Termteacher> termteacherCollection;
 
     public Teacher() {
@@ -232,8 +233,11 @@ public class Teacher implements Serializable {
     }
 
     @Override
-    public String toString() {
-        return "model.Teacher[ id=" + id + " ]";
-    }
+	public String toString() {
+		return "Teacher [id=" + id + ", sn=" + sn + ", name=" + name + ", password=" + password + ", sex=" + sex
+				+ ", avatarid=" + avatarid + ", tel=" + tel + ", qq=" + qq + ", email=" + email + ", regdate=" + regdate
+				+ ", roleid=" + roleid + ", termcourseCollection=" + termcourseCollection + ", college=" + college
+				+ ", termteacherCollection=" + termteacherCollection + "]";
+	}
     
 }

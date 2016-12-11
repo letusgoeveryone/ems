@@ -14,7 +14,9 @@
        
     <!-- 启动Spring MVC的注解功能，完成请求和注解POJO的映射 -->
 	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
-	<mvc:annotation-driven></mvc:annotation-driven>
+    <mvc:annotation-driven /> 
+    
+    <bean id = "myid" class="com.letusgo.dto.TermCourseMaster"></bean>
 	
 	<!-- 扫描controller -->
 	<context:component-scan base-package="com.letusgo.controller" />  
@@ -30,5 +32,18 @@
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver"
 		p:prefix="/WEB-INF/jsp/"
-		p:suffix=".jsp" />     
+		p:suffix=".jsp" />
+
+	<bean
+		class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
+	</bean>
+	<bean
+		class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<bean
+					class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" />
+			</list>
+		</property>
+	</bean>
 </beans>

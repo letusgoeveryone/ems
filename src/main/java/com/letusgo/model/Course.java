@@ -10,6 +10,7 @@ import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -56,7 +57,7 @@ public class Course implements Serializable {
     private String introduce;
     @Column(name = "state")
     private Integer state;
-    @OneToMany(mappedBy = "courseid")
+    @OneToMany(mappedBy = "courseid",fetch=FetchType.EAGER)
     private Collection<Termcourse> termcourseCollection;
     @JoinColumn(name = "college_id", referencedColumnName = "id")
     @ManyToOne
