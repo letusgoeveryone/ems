@@ -29,13 +29,13 @@ public class CourseDaoTest {
 		new com.letusgo.dto.DTeacher(t.getId(),t.getSn(),t.getName(),t.getPassword(),t.getSex(),t.getAvatarid(),t.getTel(),t.getQq(),t.getEmail(),t.getRegdate(),t.getRoleid(),t.getCollege().getId());
 	}
 	
-	public void name() {
-		List<DTeacher> list = new AcdemicDeanService().GetAllTeacher();
-		System.out.println("size      *****"+list.size());
-		for(DTeacher teacher : list){
-			System.out.println(teacher);
-		}
-	}
+//	public void name() {
+//		List<DTeacher> list = new AcdemicDeanService().GetAllTeacher();
+//		System.out.println("size      *****"+list.size());
+//		for(DTeacher teacher : list){
+//			System.out.println(teacher);
+//		}
+//	}
 
 	
 	@Ignore
@@ -52,8 +52,8 @@ public class CourseDaoTest {
 		List<Termcourse> list = query.list();
 		for(Termcourse termcourse : list){
 			TermCourseMaster temp = new TermCourseMaster();
-			temp.setCourseName(termcourse.getCourseid().getName());
-			temp.setNumber(termcourse.getCourseid().getNumber());
+			temp.setCourseName(termcourse.getCourse().getName());
+			temp.setNumber(termcourse.getCourse().getNumber());
 			temp.setSn(termcourse.getTeacher().getSn());
 			temp.setTeaName(termcourse.getTeacher().getName());
 			System.out.println(temp);

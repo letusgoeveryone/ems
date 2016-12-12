@@ -47,7 +47,7 @@ public class Termcourse implements Serializable {
     private String term;
     @JoinColumn(name = "Course_id", referencedColumnName = "id")
     @ManyToOne
-    private Course courseid;
+    private Course course;
     @JoinColumn(name = "Teacher_id", referencedColumnName = "id")
     @ManyToOne
     private Teacher teacher;
@@ -77,19 +77,19 @@ public class Termcourse implements Serializable {
         this.term = term;
     }
 
-    public Course getCourseid() {
-        return courseid;
+    public Course getCourse() {
+        return course;
     }
 
-    public void setCourseid(Course courseid) {
-        this.courseid = courseid;
+    public void setCourse(Course course) {
+        this.course = course;
     }
 
     public Teacher getTeacher() {
         return teacher;
     }
 
-    public void setTeacherid(Teacher teacher) {
+    public void setTeacher(Teacher teacher) {
         this.teacher = teacher;
     }
 

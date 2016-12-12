@@ -52,7 +52,22 @@ public class DTeacher {
 		this.collegeid = collegeid;
 	}
 	
-	
+	public DTeacher(Integer id, String sn, String name, String password, Boolean sex, String avatarid, String tel,
+			String qq, String email, Date regdate, String roleid) {
+		super();
+		this.id = id;
+		this.sn = sn;
+		this.name = name;
+		this.password = password;
+		this.sex = sex;
+		this.avatarid = avatarid;
+		this.tel = tel;
+		this.qq = qq;
+		this.email = email;
+		this.regdate = regdate;
+		this.roleid = roleid;
+	}
+		
 	public Integer getId() {
 		return id;
 	}

@@ -49,17 +49,17 @@ public class Termteacher implements Serializable {
     private Teacher teacher;
     @JoinColumn(name = "Termcourse_id", referencedColumnName = "id")
     @ManyToOne
-    private Termcourse termcourseid;
+    private Termcourse termcourse;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "termteacherid")
     private Collection<Termclass> termclassCollection;
 
     public Termteacher() {
     }
 
-    public Termteacher( Teacher teacher, Termcourse termcourseid, Collection<Termclass> termclassCollection) {
+    public Termteacher( Teacher teacher, Termcourse termcourse, Collection<Termclass> termclassCollection) {
 
         this.teacher = teacher;
-        this.termcourseid = termcourseid;
+        this.termcourse = termcourse;
         this.termclassCollection = termclassCollection;
     }
 
@@ -85,16 +85,16 @@ public class Termteacher implements Serializable {
         return teacher;
     }
 
-    public void setTeacher(Teacher teacherid) {
-        this.teacher = teacherid;
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
     }
 
-    public Termcourse getTermcourseid() {
-        return termcourseid;
+    public Termcourse getTermcourse() {
+        return termcourse;
     }
 
-    public void setTermcourseid(Termcourse termcourseid) {
-        this.termcourseid = termcourseid;
+    public void setTermcourse(Termcourse termcourseid) {
+        this.termcourse = termcourseid;
     }
 
     @XmlTransient

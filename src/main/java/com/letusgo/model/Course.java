@@ -57,7 +57,7 @@ public class Course implements Serializable {
     private String introduce;
     @Column(name = "state")
     private Integer state;
-    @OneToMany(mappedBy = "courseid",fetch=FetchType.EAGER)
+    @OneToMany(mappedBy = "course",fetch=FetchType.EAGER)
     private Collection<Termcourse> termcourseCollection;
     @JoinColumn(name = "college_id", referencedColumnName = "id")
     @ManyToOne
@@ -72,7 +72,15 @@ public class Course implements Serializable {
     }
     
 
-    public Course(Integer id) {
+
+	public Course(String number, String name, int collegeId) {
+		super();
+		this.number = number;
+		this.name = name;
+		
+	}
+
+	public Course(Integer id) {
         this.id = id;
     }
 
@@ -133,11 +141,11 @@ public class Course implements Serializable {
         this.termcourseCollection = termcourseCollection;
     }
 
-    public College getCollegeId() {
+    public College getCollege() {
         return college;
     }
 
-    public void setCollegeId(College college) {
+    public void setCollege(College college) {
         this.college = college;
     }
 
