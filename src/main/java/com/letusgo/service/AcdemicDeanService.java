@@ -4,18 +4,24 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.constraints.Null;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.letusgo.HibernateUtil.HibernateUtil;
 import com.letusgo.daoImp.CollegeDaoImp;
 import com.letusgo.daoImp.CourseDaoImp;
 import com.letusgo.daoImp.DaoImpl;
 import com.letusgo.daoImp.TeacherDaoImp;
 import com.letusgo.dto.DTeacher;
-import com.letusgo.dto.TermCourseMaster;
+import com.letusgo.dto.DTeacherClass;
+import com.letusgo.dto.DTermCourseMaster;
 import com.letusgo.model.College;
 import com.letusgo.model.Course;
 import com.letusgo.model.Teacher;
@@ -34,22 +40,12 @@ public class AcdemicDeanService {
 				.createSQLQuery("select * from teacher;").addEntity(com.letusgo.model.Teacher.class).list();
 		List<DTeacher> list2=new ArrayList<DTeacher>();
 		for (Teacher teacher : list) {
-//			DTeacher tmp=new DTeacher();
-//			tmp.setName(teacher.getName());
-//			tmp.setId(teacher.getId());
-//			tmp.setSn(teacher.getSn());
-//			tmp.setPassword(teacher.getPassword());
-//			list2.add(tmp);
 			list2.add(new DTeacher(teacher.getId(), teacher.getSn(), teacher.getName(), teacher.getPassword(),
 					teacher.getSex(), teacher.getAvatarid(), teacher.getTel(), teacher.getQq(), teacher.getEmail(),
 					teacher.getRegdate(), teacher.getRoleid()));
 			
 		}
 		beginTransaction.commit();//业务结尾
-//		Transaction beginTransaction = HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();//业务开头
-//		List<DTeacher> list=HibernateUtil.getSessionFactory().getCurrentSession()
-//				.createQuery("select new com.letusgo.dto.DTeacher(t.id,t.sn,t.name,t.password,t.sex,t.avatarid,t.tel,t.qq,t.email,t.regdate,t.roleid,t.college.id) from Teacher t").list();
-//		beginTransaction.commit();//业务结尾   
 		return list2;
 	 }
 	 
@@ -119,16 +115,16 @@ public class AcdemicDeanService {
 	  * @param term 学期
 	  * @return某学院所有课程list
 	  */
-	 public List<TermCourseMaster> GetAllCourse(int collegeid,String term){
+	 public List<DTermCourseMaster> GetAllCourse(int collegeid,String term){
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction transaction = session.beginTransaction();
 		Query query = session.createQuery("FROM Termcourse t WHERE t.term = :term and t.courseid.college.id = :collegeId");
 		query.setString("term", term);
 		query.setInteger("collegeId", collegeid);
 		List<Termcourse> list = query.list();
-		List<TermCourseMaster> list2 = new ArrayList<TermCourseMaster>();
+		List<DTermCourseMaster> list2 = new ArrayList<DTermCourseMaster>();
 		for(Termcourse termcourse : list){
-			TermCourseMaster temp = new TermCourseMaster();
+			DTermCourseMaster temp = new DTermCourseMaster();
 			temp.setCourseName(termcourse.getCourse().getName());
 			temp.setNumber(termcourse.getCourse().getNumber());
 			temp.setSn(termcourse.getTeacher().getSn());
@@ -230,7 +226,18 @@ public class AcdemicDeanService {
 		 return true;
 	 }
 	 
+	 /**
+	  *  获取某课由谁来教，有哪些班级
+	  * @param term学期
+	  * @param courseid课程id
+	  * @return 所有教这门课的老师和班级
+	  */
+	@RequestMapping("/getcourseteacher")
+	@ResponseBody
+	public List<DTeacherClass> getcourseteacher(String term,int courseid){
 
+		return null;
+	}
 	 
 	 /**
 	  * 设置某课由谁来教 或 设置某老师教什么课,并设置这门课这位老师下面的班级数
@@ -257,8 +264,8 @@ public class AcdemicDeanService {
 	  */
 	 public String getCurrentTerm (int collegeId){
 		 Transaction beginTransaction = HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();//业务开头
-		College college=new DaoImpl<College>().find(College.class, collegeId);
-		beginTransaction.commit();//业务结尾
+	 	 College college=new DaoImpl<College>().find(College.class, collegeId);
+		 beginTransaction.commit();//业务结尾
 		 return college.getCurrterm();
 	 }
 	 
@@ -269,10 +276,12 @@ public class AcdemicDeanService {
 	  * @return
 	  */
 	 public boolean setCurrentTerm (int collegeId,String term){
-		 Transaction beginTransaction = HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();//业务开头
-		College college=new DaoImpl<College>().find(College.class, collegeId);
-		college.setCurrterm(term);
-		beginTransaction.commit();//业务结尾
+		 Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		 Transaction transaction = session.beginTransaction();
+		 College college=new DaoImpl<College>().find(College.class, collegeId);
+		 college.setCurrterm(term);
+		 session.save(college);
+		 transaction.commit();
 		 return true;
 	 
 	 }

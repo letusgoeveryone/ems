@@ -1,25 +1,25 @@
 package com.letusgo.dto;
 
-public class TermCourseMaster {
+public class DTermCourseMaster {
 	private String number;
 	private String courseName;
 	private String sn;
 	private String teaName;
 	
-	public TermCourseMaster() {
-		// TODO Auto-generated constructor stub
-	}
-	
-	public TermCourseMaster(String num) {
+
+	public DTermCourseMaster(String num) {
 		this.number = num;
 	}
 	
 	
-	
+	public DTermCourseMaster() {
+		super();
+	}
+
 	public String getNumber() {
 		return number;
 	}
-	public TermCourseMaster(String number, String courseName, String sn, String teaName) {
+	public DTermCourseMaster(String number, String courseName, String sn, String teaName) {
 		super();
 		this.number = number;
 		this.courseName = courseName;

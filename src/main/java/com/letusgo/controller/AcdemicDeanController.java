@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.letusgo.dto.DTeacher;
-import com.letusgo.dto.TermCourseMaster;
+import com.letusgo.dto.DTeacherClass;
+import com.letusgo.dto.DTermCourseMaster;
 import com.letusgo.model.Course;
 import com.letusgo.model.Teacher;
 import com.letusgo.service.AcdemicDeanService;
@@ -104,7 +105,7 @@ public class AcdemicDeanController {
 	  * */
 	@RequestMapping("/termcoursemaster")
 	@ResponseBody
-	public List<TermCourseMaster> getTermCourseMaster(HttpServletRequest request, HttpServletResponse response) throws Exception{
+	public List<DTermCourseMaster> getTermCourseMaster(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		request.setCharacterEncoding("UTF-8");
 		String term= request.getParameter("term");
 		int collegeid=1;//（collegeId学院id读取当前教务管理员所在的学院，待添加springsecurity之后再改此行）
@@ -161,27 +162,27 @@ public class AcdemicDeanController {
 	  * */
 	@RequestMapping("/setcourseteacher")
 	@ResponseBody
-	public int getCourseTeacher(HttpServletRequest request, HttpServletResponse response) throws Exception{
+	public boolean getCourseTeacher(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		request.setCharacterEncoding("UTF-8");
 		String term= request.getParameter("term");
 		String courseid= request.getParameter("courseid");
 		String teachersn= request.getParameter("teachersn");
 		String classnumber= request.getParameter("classnumber");
 		AcdemicDeanService acdemicDeanService= new AcdemicDeanService();
-		return acdemicDeanService.getCourseTeacherClassNumber(term, Integer.valueOf(courseid), teachersn );
+		return acdemicDeanService.setCourseTeacher(term, Integer.valueOf(courseid), teachersn, Integer.valueOf(classnumber));
 	}
 	
 	 /* 获取某课由谁来教，有哪些班级
 	  * 参数term, courseid（collegeId学院id从后台取, classnumber为-1则不限制）
 	  * 返回值
 	  * */
-//	@RequestMapping("/getcourseteacher")
-//	@ResponseBody
-//	public TermCourseMaster getcourseteacher(HttpServletRequest request, HttpServletResponse response) throws Exception{
-//		request.setCharacterEncoding("UTF-8");
-//		String term= request.getParameter("term");
-//		String courseid= request.getParameter("courseid");
-//		return null;
-//	}
+	@RequestMapping("/getcourseteacher")
+	@ResponseBody
+	public List<DTeacherClass> getcourseteacher(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		request.setCharacterEncoding("UTF-8");
+		String term= request.getParameter("term");
+		String courseid= request.getParameter("courseid");
+		return null;
+	}
 	
 }

@@ -16,7 +16,7 @@
 	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
     <mvc:annotation-driven /> 
     
-    <bean id = "myid" class="com.letusgo.dto.TermCourseMaster"></bean>
+    <bean id = "myid" class="com.letusgo.dto.DTermCourseMaster"></bean>
 	
 	<!-- 扫描controller -->
 	<context:component-scan base-package="com.letusgo.controller" />  

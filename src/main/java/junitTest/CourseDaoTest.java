@@ -14,7 +14,7 @@ import org.springframework.format.datetime.standard.TemporalAccessorParser;
 import com.fasterxml.jackson.core.sym.Name;
 import com.letusgo.HibernateUtil.HibernateUtil;
 import com.letusgo.dto.DTeacher;
-import com.letusgo.dto.TermCourseMaster;
+import com.letusgo.dto.DTermCourseMaster;
 import com.letusgo.model.Teacher;
 import com.letusgo.model.Termcourse;
 import com.letusgo.service.AcdemicDeanService;
@@ -51,7 +51,7 @@ public class CourseDaoTest {
 		query.setInteger("collegeId", id);
 		List<Termcourse> list = query.list();
 		for(Termcourse termcourse : list){
-			TermCourseMaster temp = new TermCourseMaster();
+			DTermCourseMaster temp = new DTermCourseMaster();
 			temp.setCourseName(termcourse.getCourse().getName());
 			temp.setNumber(termcourse.getCourse().getNumber());
 			temp.setSn(termcourse.getTeacher().getSn());
