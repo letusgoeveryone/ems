@@ -11,7 +11,7 @@
 <body>
 	<h2>登录</h2>
 	用户名：
-	<input type="text" id="username" value="system">
+	<input type="text" id="username" value="10250007">
 	<br> 密 码：
 	<input type="text" id="password" value="123456">
 	<br> 验证码：
@@ -40,6 +40,7 @@
     						$("#loginMsg").html("登录成功!");
     						window.location.href = "loginsuccess";
     					};
+    					$("#captchaimg").attr("src","createImage?dt=" + Math.random()); //刷新验证码
     					if (data === "CheckCodeError") {
     						$("#loginMsg").html("验证码出错了!");
     						$("#captchaimg").val("");

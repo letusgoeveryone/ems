@@ -5,18 +5,41 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>教务管理员</title>
-<script src="js/jquery.js"></script>
+<script src="../js/jquery.js"></script>
+
 </head>
 <body>
+	
 	<h2>教务管理员</h2>
-	<a href="../logout">登出</a><br>
-	
+	<a href="../">首页</a>|<a href="../logout">登出</a><br>
+	=================================================<br>
+	<div>
 	<h4>新增教师</h4>
-	用户名：
-	<input type="text" id="username" value="system">
-	<br> 密 码：
-	<input type="text" id="password" value="123456"><br><br><br>
-	<button id="loginbtn">新增</button>
+	工号：<input type="text" id="username" value="10250007"><br>
+	姓名：<input type="text" id="teachername" value="王红涛"><br>
+	密码：<input type="text" id="password" value="123456">
+	<button id="addteacher">新增</button>
+	</div>
+	=================================================<br>
+	<div>
+	<h4>查看教师</h4>
+	<button id="getallteacher">查看</button>
+	<table border="1px" cellPadding="0px" cellSpacing="0px" id="teachertable"></table> 
+	</div>
+	=================================================<br>
+	<div>
+	<h4>新增课程</h4>
+	课号：<input type="text" id="course_number" value="XXK00001"><br>
+	课名：<input type="text" id="course_name" value="音乐鉴赏">
+	<button id="addcourse">新增</button>
+	</div>
+	=================================================<br>
+	<div>
+	<h4>查看课程</h4>
+	<button id="getallcourse">查看</button>
+	<table border="1px" cellPadding="0px" cellSpacing="0px" id="coursetable"></table> 
+	</div>
 	
+<script src="../js/acdemicdean.js"></script>
 </body>
 </html>

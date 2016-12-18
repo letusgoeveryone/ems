@@ -13,6 +13,7 @@ import org.springframework.format.datetime.standard.TemporalAccessorParser;
 
 import com.fasterxml.jackson.core.sym.Name;
 import com.letusgo.HibernateUtil.HibernateUtil;
+import com.letusgo.daoImp.TeacherDaoImp;
 import com.letusgo.dto.DTeacher;
 import com.letusgo.dto.DTermCourseMaster;
 import com.letusgo.model.Teacher;
@@ -25,8 +26,8 @@ import sun.net.TransferProtocolClient;
 public class CourseDaoTest {
 	
 	public static void main(String[] args) {
-		Teacher t = new Teacher();
-		new com.letusgo.dto.DTeacher(t.getId(),t.getSn(),t.getName(),t.getPassword(),t.getSex(),t.getAvatarid(),t.getTel(),t.getQq(),t.getEmail(),t.getRegdate(),t.getRoleid(),t.getCollege().getId());
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		new TeacherDaoImp();
 	}
 	
 //	public void name() {

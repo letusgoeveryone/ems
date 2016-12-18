@@ -51,7 +51,7 @@ public class Termcourse implements Serializable {
     @JoinColumn(name = "Teacher_id", referencedColumnName = "id")
     @ManyToOne
     private Teacher teacher;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "termcourseid")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "termcourse")
     private Collection<Termteacher> termteacherCollection;
 
     public Termcourse() {
