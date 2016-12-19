@@ -1,6 +1,7 @@
 package com.letusgo.controller;
 
 import java.io.UnsupportedEncodingException;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -21,7 +22,14 @@ import com.letusgo.service.AcdemicDeanService;
 @Controller
 @RequestMapping("/acdemicdean/")
 public class AcdemicDeanController {
-	
+	/***
+	 * 响应acdemicdean页
+	 * @return
+	 */
+	@RequestMapping("/")
+	public String index() {
+		return "acdemicdean";
+	}
 
 	/*新增教师
 	  * 获取参数sn,name,password

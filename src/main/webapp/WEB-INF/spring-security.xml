@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:sec="http://www.springframework.org/schema/security"
+       xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+	
+
+    <sec:http use-expressions="true">
+        <!-- 关闭CSRF,如果开启了CSRF，必须使用post方式请求登出，且全局对POST过滤更加严格( SpringSecurity4.0新特性) -->
+		<sec:csrf disabled="true" /> 
+		<!-- 配置需要拦截的 URL, 以及访问这些 URL 需要具备哪些权限 -->
+    	<sec:intercept-url pattern="/student" access="hasRole('ROLE_STUDENT')"/>
+        <sec:intercept-url pattern="/student/**" access="hasRole('ROLE_STUDENT')"/>
+        <sec:intercept-url pattern="/teacher" access="hasRole('ROLE_TEACHER')"/>
+        <sec:intercept-url pattern="/teacher/**" access="hasRole('ROLE_TEACHER')"/>     
+        <sec:intercept-url pattern="/acdemicdean" access="hasRole('ROLE_ACDEMICDEAN')"/>
+        <sec:intercept-url pattern="/acdemicdean/**" access="hasRole('ROLE_ACDEMICDEAN')"/>  
+        <sec:intercept-url pattern="/admin" access="hasRole('ROLE_ADMIN')"/>
+        <sec:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>         
+        <!-- 配置登出 URL-->            
+        <sec:logout logout-url="/logout" logout-success-url="/login"  invalidate-session="true" />
+        <!-- 配置登录页，失败页-->        
+        <sec:form-login login-page="/login" authentication-failure-url="/login"/>
+        <!--session超时返回登录页-->
+        <sec:session-management invalid-session-url="/login" />
+    </sec:http>
+
+    <bean id="userDetailsService" class="com.letusgo.service.UserDetailsService"></bean>
+    <sec:authentication-manager alias="myAuthenticationManager">
+        <sec:authentication-provider user-service-ref="userDetailsService">
+        </sec:authentication-provider>
+    </sec:authentication-manager>	
+</beans>
