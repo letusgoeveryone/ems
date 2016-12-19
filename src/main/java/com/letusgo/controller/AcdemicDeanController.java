@@ -38,7 +38,7 @@ public class AcdemicDeanController {
 	  * */
 	@RequestMapping("/addteacher")
 	@ResponseBody
-	public boolean addTeacher(HttpServletRequest request, HttpServletResponse response) throws Exception{
+	public String addTeacher(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		request.setCharacterEncoding("UTF-8");
 		String sn= request.getParameter("sn");
 		String name= request.getParameter("name");
@@ -53,7 +53,7 @@ public class AcdemicDeanController {
 	  * */
 	@RequestMapping("/deleteteacher")
 	@ResponseBody
-	public boolean deleteTeacher(HttpServletRequest request, HttpServletResponse response){
+	public String deleteTeacher(HttpServletRequest request, HttpServletResponse response){
 		String sn= request.getParameter("sn");
 		AcdemicDeanService acdemicDeanService= new AcdemicDeanService();
 		return acdemicDeanService.deleteTeacher(sn);
@@ -65,11 +65,11 @@ public class AcdemicDeanController {
 	  * */
 	@RequestMapping("/modifyteacher")
 	@ResponseBody
-	public boolean modifyTeacher(HttpServletRequest request, HttpServletResponse response) throws Exception{
+	public String modifyTeacher(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		request.setCharacterEncoding("UTF-8");
 		String sn= request.getParameter("sn");
 		AcdemicDeanService acdemicDeanService= new AcdemicDeanService();
-		return acdemicDeanService.deleteTeacher(sn);
+		return acdemicDeanService.modifyTeacher(sn);
 	}
 	
 	 /* 列出所有教师
@@ -127,7 +127,7 @@ public class AcdemicDeanController {
 	  * */
 	@RequestMapping("/addcourse")
 	@ResponseBody
-	public boolean addCourse(HttpServletRequest request, HttpServletResponse response) throws Exception{
+	public String addCourse(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		request.setCharacterEncoding("UTF-8");
 		int collegeid=1;//（collegeId学院id读取当前教务管理员所在的学院，待添加springsecurity之后再改此行）
 		String number= request.getParameter("number");
@@ -142,7 +142,7 @@ public class AcdemicDeanController {
 	  * */
 	@RequestMapping("/deletecourse")
 	@ResponseBody
-	public boolean deleteCourse(HttpServletRequest request, HttpServletResponse response) throws Exception{
+	public String deleteCourse(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		request.setCharacterEncoding("UTF-8");
 		String courseid= request.getParameter("courseid");
 		int collegeid=1;//（collegeId学院id读取当前教务管理员所在的学院，待添加springsecurity之后再改此行）
@@ -156,7 +156,7 @@ public class AcdemicDeanController {
 	  * */
 	@RequestMapping("/setcoursemaster")
 	@ResponseBody
-	public boolean setCourseMaster(HttpServletRequest request, HttpServletResponse response) throws Exception{
+	public String setCourseMaster(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		request.setCharacterEncoding("UTF-8");
 		String term= request.getParameter("term");
 		String courseid= request.getParameter("courseid");
@@ -170,7 +170,7 @@ public class AcdemicDeanController {
 	  * */
 	@RequestMapping("/setcourseteacher")
 	@ResponseBody
-	public boolean getCourseTeacher(HttpServletRequest request, HttpServletResponse response) throws Exception{
+	public String getCourseTeacher(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		request.setCharacterEncoding("UTF-8");
 		String term= request.getParameter("term");
 		String courseid= request.getParameter("courseid");

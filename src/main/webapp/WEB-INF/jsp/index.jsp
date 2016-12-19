@@ -19,6 +19,10 @@
 <a href="logout">登出</a><br>
 </sec:authorize>
 <br>
-<a href="test_insert_a_college">测试插入一条学院数据</a>
+
+
+
+<a href="test_insert_a_college">测试插入一条学院和教师数据</a>
+
 </body>
 </html>

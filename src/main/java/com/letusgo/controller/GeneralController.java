@@ -23,24 +23,24 @@ public class GeneralController {
 	public List<String> getAllTerm(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		Calendar calendar=Calendar.getInstance();
 		List<String> allterm=new ArrayList<String>();
-		allterm.add(calendar.get(Calendar.YEAR)-2+"01");
-		allterm.add(calendar.get(Calendar.YEAR)-2+"02");
-		allterm.add(calendar.get(Calendar.YEAR)-2+"03");
-		allterm.add(calendar.get(Calendar.YEAR)-1+"01");
-		allterm.add(calendar.get(Calendar.YEAR)-1+"02");
-		allterm.add(calendar.get(Calendar.YEAR)-1+"03");
-		allterm.add(calendar.get(Calendar.YEAR)+"01");
-		allterm.add(calendar.get(Calendar.YEAR)+"02");
-		allterm.add(calendar.get(Calendar.YEAR)+"03");	
-		allterm.add(calendar.get(Calendar.YEAR)+1+"01");
-		allterm.add(calendar.get(Calendar.YEAR)+1+"02");
-		allterm.add(calendar.get(Calendar.YEAR)+1+"03");			
+		allterm.add(calendar.get(Calendar.YEAR)-2+"-01");
+		allterm.add(calendar.get(Calendar.YEAR)-2+"-02");
+		allterm.add(calendar.get(Calendar.YEAR)-2+"-03");
+		allterm.add(calendar.get(Calendar.YEAR)-1+"-01");
+		allterm.add(calendar.get(Calendar.YEAR)-1+"-02");
+		allterm.add(calendar.get(Calendar.YEAR)-1+"-03");
+		allterm.add(calendar.get(Calendar.YEAR)+"-01");
+		allterm.add(calendar.get(Calendar.YEAR)+"-02");
+		allterm.add(calendar.get(Calendar.YEAR)+"-03");	
+		allterm.add(calendar.get(Calendar.YEAR)+1+"-01");
+		allterm.add(calendar.get(Calendar.YEAR)+1+"-02");
+		allterm.add(calendar.get(Calendar.YEAR)+1+"-03");			
 		return allterm;
 	}
 	
 	@RequestMapping("/getcurrentterm")
 	@ResponseBody
 	public String getCurrentTerm(HttpServletRequest request, HttpServletResponse response) throws Exception{
-		return "201601";
+		return "2016-01";
 	}
 }
