@@ -69,18 +69,19 @@ public class AcdemicDeanService {
 	  * @param sn 教师工号
 	  * @param name 教师姓名
 	  * @param password 教师密码
+	  * @param collegeid 学院id
+	  * 
 	  * @return新增是否成功
 	  */
-	 public String addTeacher(String sn,String name,String password){
+	 public String addTeacher(String sn,String name,String password,int collegeid){
 		Transaction beginTransaction = HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();//业务开头
 		Teacher teacher=new Teacher(sn, name, password);
+		teacher.setCollege(new DaoImpl<College>().find(College.class, collegeid));
 		TeacherDaoImp teacherDaoImp= new TeacherDaoImp();
 		teacherDaoImp.addTeacher(teacher);
 		beginTransaction.commit();//业务结尾
 		return "true";
 	 }
-	 
-	 
 	 /**
 	  * 删除一个教师
 	  * @param teacher_sn 教师工号
@@ -103,7 +104,7 @@ public class AcdemicDeanService {
 		 Transaction beginTransaction = HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();//业务开头
 		 TeacherDaoImp teacherDaoImp= new TeacherDaoImp();
 		 Teacher teacher =teacherDaoImp.getTeacherBySn(teacher_sn);
-		 teacher.setPassword(teacher.getSn());
+		 teacher.setPassword((new GeneralService()).getMD5(teacher.getSn()));
 		 teacherDaoImp.save(teacher);
 		 beginTransaction.commit();//业务结尾
 		 return "true";

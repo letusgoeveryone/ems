@@ -10,15 +10,24 @@ import java.util.Random;
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.letusgo.HibernateUtil.HibernateUtil;
+import com.letusgo.daoImp.StudentDaoImp;
+import com.letusgo.daoImp.TeacherDaoImp;
+import com.letusgo.model.Student;
+import com.letusgo.model.Teacher;
 
 
 
@@ -66,6 +75,18 @@ public class LoginController {
 			System.out.println(curr_captcha);
 			request.getSession().removeAttribute("captcha");
 			UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(username, password);
+			Transaction beginTransaction = HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();//业务开头
+//			try {
+//				TeacherDaoImp teacherDaoImp= new TeacherDaoImp();
+//				Teacher teacher=teacherDaoImp.getTeacherBySn(username);
+//				int roleValue=Integer.valueOf(teacher.getRoleid());
+//				if (roleValue<=0 ||roleValue>7) {
+//					return "RoleError";
+//				}
+//			} catch (Exception e2) {
+//				e2.printStackTrace();
+//			}
+			beginTransaction.commit();//业务结尾   
 	        try {
 	            Authentication authentication = myAuthenticationManager.authenticate(authRequest);
 	            SecurityContextHolder.getContext().setAuthentication(authentication);

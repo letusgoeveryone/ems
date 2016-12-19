@@ -42,11 +42,13 @@ public class UserDetailsService implements org.springframework.security.core.use
 			StudentDaoImp studentDaoImp= new StudentDaoImp();
 			Student student=studentDaoImp.getStudentBySn(username);
 			password=student.getPassword();
+			
 			System.out.println(student);
 		} catch (Exception e) {
 			try {
 				TeacherDaoImp teacherDaoImp= new TeacherDaoImp();
 				Teacher teacher=teacherDaoImp.getTeacherBySn(username);
+				System.out.println(teacher);
 				password=teacher.getPassword();
 				System.out.println(teacher);
 			} catch (Exception e2) {
@@ -72,12 +74,40 @@ public class UserDetailsService implements org.springframework.security.core.use
 	
 	public static ArrayList<GrantedAuthority> getAuthoritiesBySn(String sn){
 		ArrayList<GrantedAuthority> authorities = new ArrayList<>();
-
-		String str[] = {"ROLE_ACDEMICDEAN","ROLE_TEACHER","ROLE_STUDENT","ROLE_ADMIN"};
-		for (int i = 0; i < str.length; i++) {
-			authorities.add(new SimpleGrantedAuthority(str[i]));  
+		String str[] = {"ROLE_TEACHER","ROLE_ACDEMICDEAN","ROLE_ADMIN","ROLE_STUDENT"};
+		Transaction beginTransaction = HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();//业务开头
+		try {
+			StudentDaoImp studentDaoImp= new StudentDaoImp();
+			Student student=studentDaoImp.getStudentBySn(sn);
+			student.getName();
+			authorities.add(new SimpleGrantedAuthority(str[3]));  
+		} catch (Exception e) {
+			try {
+				TeacherDaoImp teacherDaoImp= new TeacherDaoImp();
+				Teacher teacher=teacherDaoImp.getTeacherBySn(sn);
+				int roleValue;
+				try {
+					roleValue = Integer.valueOf(teacher.getRoleid());
+					if (roleValue<=0 ||roleValue>7) {
+						return null;
+					}
+					char[] ch= Integer.toBinaryString(roleValue).toCharArray();
+		            int j=0;
+		            for (int i = ch.length-1; i >=0; i--) {
+		                if(String.valueOf(ch[i]).equals("1")){
+		                authorities.add(new SimpleGrantedAuthority(str[j]));
+		                j++;
+		                }
+		            }
+				} catch (NumberFormatException e1) {
+					authorities.add(new SimpleGrantedAuthority(str[0]));
+				}
+				
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
 		}
-
+		beginTransaction.commit();//业务结尾   
 		return authorities;
 	}
 	  
