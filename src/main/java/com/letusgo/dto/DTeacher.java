@@ -28,15 +28,21 @@ public class DTeacher {
     private Date regdate;
     private String roleid;
     private int collegeid;
-    
+    private String college;
     public DTeacher() {
 		// TODO Auto-generated constructor stub
 	}
-    
-    
-    
+
+	public String getCollege() {
+		return college;
+	}
+
+	public void setCollege(String college) {
+		this.college = college;
+	}
+
 	public DTeacher(Integer id, String sn, String name, String password, Boolean sex, String avatarid, String tel,
-			String qq, String email, Date regdate, String roleid, int collegeid) {
+			String qq, String email, Date regdate, String roleid, int collegeid,String college) {
 		super();
 		this.id = id;
 		this.sn = sn;
@@ -50,6 +56,7 @@ public class DTeacher {
 		this.regdate = regdate;
 		this.roleid = roleid;
 		this.collegeid = collegeid;
+		this.college=college;
 	}
 	
 	public DTeacher(Integer id, String sn, String name, String password, Boolean sex, String avatarid, String tel,
@@ -140,11 +147,13 @@ public class DTeacher {
 	public void setCollegeid(int collegeid) {
 		this.collegeid = collegeid;
 	}
+
 	@Override
 	public String toString() {
 		return "DTeacher [id=" + id + ", sn=" + sn + ", name=" + name + ", password=" + password + ", sex=" + sex
 				+ ", avatarid=" + avatarid + ", tel=" + tel + ", qq=" + qq + ", email=" + email + ", regdate=" + regdate
-				+ ", roleid=" + roleid + ", collegeid=" + collegeid + "]";
+				+ ", roleid=" + roleid + ", collegeid=" + collegeid + ", college=" + college + "]";
 	}
+	
     
 }

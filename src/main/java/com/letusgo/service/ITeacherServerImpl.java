@@ -4,8 +4,12 @@
 package com.letusgo.service;
 
 import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
+import com.letusgo.HibernateUtil.HibernateUtil;
 import com.letusgo.model.Termteacher;
+
 
 /** 
 * @author  lbx E-mail:1274604226@qq.com 
@@ -15,18 +19,24 @@ import com.letusgo.model.Termteacher;
 
 public class ITeacherServerImpl implements ITeacherServer{
 	public void SetIntroduce(int TermCourseId, int TeacherId,String introduce) {
-        Query query = getSession().createQuery("FROM Termteacher t where t.teacher.id = :tid and t.termcourse.id = :cid");
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Transaction transaction = session.beginTransaction();
+        Query query = session.createQuery("FROM Termteacher t where t.teacher.id = :tid and t.termcourse.id = :cid");
         query.setInteger("tid", TeacherId);
         query.setInteger("cid", TermCourseId);
         Termteacher termteacher = (Termteacher) query.uniqueResult();
         termteacher.getTermcourse().getCourse().setIntroduce(introduce);
+        transaction.commit();
     }
 
     public void SetSyllabus(int TermCourseId, int TeacherId,String syllabus) {
-        Query query = getSession().createQuery("FROM Termteacher t where t.teacher.id = :tid and t.termcourse.id = :cid");
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Transaction transaction = session.beginTransaction();
+        Query query = session.createQuery("FROM Termteacher t where t.teacher.id = :tid and t.termcourse.id = :cid");
         query.setInteger("tid", TeacherId);
         query.setInteger("cid", TermCourseId);
         Termteacher termteacher = (Termteacher) query.uniqueResult();
         termteacher.getTermcourse().getCourse().setIntroduce(syllabus);
+        transaction.commit();
     }
 }
