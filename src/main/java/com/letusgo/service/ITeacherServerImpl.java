@@ -10,6 +10,7 @@ import org.hibernate.Transaction;
 import com.letusgo.HibernateUtil.HibernateUtil;
 import com.letusgo.model.Termteacher;
 
+
 /** 
 * @author  lbx E-mail:1274604226@qq.com 
 * @version createdata：2016年12月19日 下午8:13:16 
