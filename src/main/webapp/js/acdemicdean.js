@@ -3,7 +3,7 @@ $(function() {
 		$.post("addteacher", {
 			sn : $("#username").val(),
 			name : $("#teachername").val(),
-			password : $("#password").val()
+			password : hex_md5($("#password").val())
 		}, function(data) {
 			if (data == "true") {
 				alert("新增教师成功");

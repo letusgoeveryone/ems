@@ -18,6 +18,7 @@ import com.letusgo.dto.DTermCourseMaster;
 import com.letusgo.model.Course;
 import com.letusgo.model.Teacher;
 import com.letusgo.service.AcdemicDeanService;
+import com.letusgo.service.GeneralService;
 
 @Controller
 @RequestMapping("/acdemicdean/")
@@ -44,7 +45,7 @@ public class AcdemicDeanController {
 		String name= request.getParameter("name");
 		String password= request.getParameter("password");
 		AcdemicDeanService acdemicDeanService= new AcdemicDeanService();
-		return acdemicDeanService.addTeacher(sn, name, password);
+		return acdemicDeanService.addTeacher(sn, name, password,(new GeneralService().getCurrentUserCollegeid()));
 	}
 	
 	 /*删除教师
@@ -72,26 +73,15 @@ public class AcdemicDeanController {
 		return acdemicDeanService.modifyTeacher(sn);
 	}
 	
-	 /* 列出所有教师
+	 /* 列出本学院所有教师
 	  * 返回值
 	  * */
 	@RequestMapping("/getallteacher")
 	@ResponseBody
 	public List<DTeacher> getAllTeacher(HttpServletRequest request, HttpServletResponse response) throws Exception{
-		
+		int collegeid=(new GeneralService().getCurrentUserCollegeid());
 		AcdemicDeanService acdemicDeanService= new AcdemicDeanService();
-//		List<DTeacher> list=new LinkedList();
-//		DTeacher d1=new DTeacher();
-//		d1.setId(1);
-//		d1.setSn("1111");
-//		d1.setName("111111");
-//		list.add(d1);
-//		DTeacher d2=new DTeacher();
-//		d2.setId(2);
-//		d2.setSn("2222");
-//		d2.setName("222222");
-//		list.add(d2);
-		return acdemicDeanService.getAllTeacher();
+		return acdemicDeanService.getAllTeacher(collegeid);
 	}
 	
 	 /* 通过工号读取教师信息
@@ -116,7 +106,7 @@ public class AcdemicDeanController {
 	public List<DTermCourseMaster> getTermCourseMaster(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		request.setCharacterEncoding("UTF-8");
 		String term= request.getParameter("term");
-		int collegeid=1;//（collegeId学院id读取当前教务管理员所在的学院，待添加springsecurity之后再改此行）
+		int collegeid=(new GeneralService().getCurrentUserCollegeid());
 		AcdemicDeanService acdemicDeanService= new AcdemicDeanService();
 		return acdemicDeanService.GetAllCourse(collegeid, term);
 	}
@@ -129,7 +119,7 @@ public class AcdemicDeanController {
 	@ResponseBody
 	public String addCourse(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		request.setCharacterEncoding("UTF-8");
-		int collegeid=1;//（collegeId学院id读取当前教务管理员所在的学院，待添加springsecurity之后再改此行）
+		int collegeid=(new GeneralService().getCurrentUserCollegeid());
 		String number= request.getParameter("number");
 		String name= request.getParameter("name");
 		AcdemicDeanService acdemicDeanService= new AcdemicDeanService();
@@ -145,7 +135,7 @@ public class AcdemicDeanController {
 	public String deleteCourse(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		request.setCharacterEncoding("UTF-8");
 		String courseid= request.getParameter("courseid");
-		int collegeid=1;//（collegeId学院id读取当前教务管理员所在的学院，待添加springsecurity之后再改此行）
+		int collegeid=(new GeneralService().getCurrentUserCollegeid());
 		AcdemicDeanService acdemicDeanService= new AcdemicDeanService();
 		return acdemicDeanService.deleteCourse(collegeid, collegeid);
 	}

@@ -34,18 +34,19 @@ public class AcdemicDeanService {
 	 * 获取所有教师
 	 * @return所有教师list
 	 */
-	 public List<DTeacher> getAllTeacher(){
-		Transaction beginTransaction = HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();//业务开头
-		List<Teacher> list=HibernateUtil.getSessionFactory().getCurrentSession()
-				.createSQLQuery("select * from teacher;").addEntity(com.letusgo.model.Teacher.class).list();
+	 public List<DTeacher> getAllTeacher(int collegeid){
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Transaction transaction = session.beginTransaction();
+		Query query = session.createQuery("FROM Teacher t WHERE t.college.id = :collegeId");
+		query.setInteger("collegeId", collegeid);
+		List<Teacher> list=query.list();
 		List<DTeacher> list2=new ArrayList<DTeacher>();
 		for (Teacher teacher : list) {
 			list2.add(new DTeacher(teacher.getId(), teacher.getSn(), teacher.getName(), teacher.getPassword(),
 					teacher.getSex(), teacher.getAvatarid(), teacher.getTel(), teacher.getQq(), teacher.getEmail(),
 					teacher.getRegdate(), teacher.getRoleid()));
-			
 		}
-		beginTransaction.commit();//业务结尾
+		transaction.commit();
 		return list2;
 	 }
 	 
@@ -69,18 +70,19 @@ public class AcdemicDeanService {
 	  * @param sn 教师工号
 	  * @param name 教师姓名
 	  * @param password 教师密码
+	  * @param collegeid 学院id
+	  * 
 	  * @return新增是否成功
 	  */
-	 public String addTeacher(String sn,String name,String password){
+	 public String addTeacher(String sn,String name,String password,int collegeid){
 		Transaction beginTransaction = HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();//业务开头
 		Teacher teacher=new Teacher(sn, name, password);
+		teacher.setCollege(new DaoImpl<College>().find(College.class, collegeid));
 		TeacherDaoImp teacherDaoImp= new TeacherDaoImp();
 		teacherDaoImp.addTeacher(teacher);
 		beginTransaction.commit();//业务结尾
 		return "true";
 	 }
-	 
-	 
 	 /**
 	  * 删除一个教师
 	  * @param teacher_sn 教师工号
@@ -103,7 +105,7 @@ public class AcdemicDeanService {
 		 Transaction beginTransaction = HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();//业务开头
 		 TeacherDaoImp teacherDaoImp= new TeacherDaoImp();
 		 Teacher teacher =teacherDaoImp.getTeacherBySn(teacher_sn);
-		 teacher.setPassword(teacher.getSn());
+		 teacher.setPassword((new GeneralService()).getMD5(teacher.getSn()));
 		 teacherDaoImp.save(teacher);
 		 beginTransaction.commit();//业务结尾
 		 return "true";

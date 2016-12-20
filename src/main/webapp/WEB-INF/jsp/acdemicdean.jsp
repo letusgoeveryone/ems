@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>教务管理员</title>
 <script src="../js/jquery.js"></script>
-
+<script src="../js/md5.js"></script>
 </head>
 <body>
 	

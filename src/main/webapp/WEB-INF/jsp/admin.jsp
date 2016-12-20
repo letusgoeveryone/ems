@@ -6,6 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>系统管理员</title>
 <script src="../js/jquery.js"></script>
+<script src="../js/md5.js"></script>
 </head>
 <body>
 	<h2>系统管理员</h2>
@@ -22,6 +23,22 @@
 	<h4>查看学院</h4>
 	<button id="getallcollege">查看</button>
 	<table border="1px" cellPadding="0px" cellSpacing="0px" id="collegetable"></table> 
+	</div>
+	<table border="1px" cellPadding="0px" cellSpacing="0px" id="collegeteachertable"></table> 
+	=================================================<br>
+	<div>
+	<h4>新增教师</h4>
+	工号：<input type="text" id="username" value="10250007"><br>
+	姓名：<input type="text" id="teachername" value="王红涛"><br>
+	密码：<input type="text" id="password" value="123456"><br>
+	学院id：<input type="text" id="collegeid" value="1">
+	<button id="addteacher">新增</button>
+	</div>
+	=================================================<br>
+	<div>
+	<h4>查看教师</h4>
+	<button id="getallteacher">查看</button>
+	<table border="1px" cellPadding="0px" cellSpacing="0px" id="teachertable"></table> 
 	</div>
 	<script src="../js/admin.js"></script>
 </body>
