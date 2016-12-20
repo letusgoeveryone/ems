@@ -27,6 +27,7 @@ import com.letusgo.model.Course;
 import com.letusgo.model.Teacher;
 import com.letusgo.model.Termcourse;
 import com.letusgo.model.Termteacher;
+import com.sun.org.apache.bcel.internal.generic.NEW;
 
 
 public class AcdemicDeanService {
@@ -112,12 +113,12 @@ public class AcdemicDeanService {
 	 }
 	 
 	 /**
-	  * 获取某学院所有课程
+	  * 获取某学院某学期课程
 	  * @param collegeid 学院id
 	  * @param term 学期
 	  * @return某学院所有课程list
 	  */
-	 public List<DTermCourseMaster> GetAllCourse(int collegeid,String term){
+	 public List<DTermCourseMaster> GetTermCourse(int collegeid,String term){
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction transaction = session.beginTransaction();
 		Query query = session.createQuery("FROM Termcourse t WHERE t.term = :term and t.course.college.id = :collegeId");
@@ -130,14 +131,39 @@ public class AcdemicDeanService {
 			DTermCourseMaster temp = new DTermCourseMaster();
 			temp.setCourseName(termcourse.getCourse().getName());
 			temp.setNumber(termcourse.getCourse().getNumber());
-			temp.setSn(termcourse.getTeacher().getSn());
-			temp.setTeaName(termcourse.getTeacher().getName());
+			temp.setId(termcourse.getId());
+			if (termcourse.getTeacher()!=null) {
+				temp.setSn(termcourse.getTeacher().getSn());
+				temp.setTeaName(termcourse.getTeacher().getName());
+			}
 			list2.add(temp);
 		}
 		transaction.commit();
 		return list2;
 	 }
 	 
+	/**
+	 * 获取某学院所有课程
+	 * @return所有教师list
+	 */
+	 public List<DTermCourseMaster> getCollegeCourse(int collegeid){
+			Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+			Transaction transaction = session.beginTransaction();
+			Query query = session.createQuery("FROM Course t WHERE t.college.id = :collegeId");
+			query.setInteger("collegeId", collegeid);
+			List<Course> list = query.list();
+			List<DTermCourseMaster> list2 = new ArrayList<DTermCourseMaster>();
+			for(Course course : list){
+				DTermCourseMaster temp = new DTermCourseMaster();
+				temp.setCourseName(course.getName());
+				temp.setNumber(course.getNumber());
+				temp.setId(course.getId());
+				list2.add(temp);
+			}
+			transaction.commit();
+		return list2;
+	 }
+ 
 	 /**
 	  * 新增某学院某课程
 	  * @param collegeid 学院ie
@@ -284,6 +310,23 @@ public class AcdemicDeanService {
 		 College college=new DaoImpl<College>().find(College.class, collegeId);
 		 college.setCurrterm(term);
 		 session.save(college);
+		 transaction.commit();
+		 return "true";
+	 
+	 }
+	 /**
+	  * 新增某学院的学期课程
+	  * @param teachersn负责人工号
+	  * @param courseId课程id 
+	  * @param term学期
+	  * @return
+	  */
+	 public String setTermCourse(String teachersn,String courseId,String term){
+		 Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		 Transaction transaction = session.beginTransaction();
+		 TeacherDaoImp teacherDaoImp=new TeacherDaoImp();
+		 Teacher teacher=teacherDaoImp.getTeacherBySn(teachersn);
+		 teacherDaoImp.setTermCourse(teacher.getId(), Integer.valueOf(courseId), term);
 		 transaction.commit();
 		 return "true";
 	 

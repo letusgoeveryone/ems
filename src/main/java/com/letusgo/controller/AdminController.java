@@ -174,6 +174,6 @@ public class AdminController {
 		int collegeid= Integer.valueOf(request.getParameter("collegeid"));
 		String term=request.getParameter("term");
 		AcdemicDeanService acdemicDeanService= new AcdemicDeanService();
-		return acdemicDeanService.GetAllCourse(collegeid, term);
+		return acdemicDeanService.GetTermCourse(collegeid, term);
 	}
 }
