@@ -3,9 +3,13 @@
  */
 package com.letusgo.service;
 
-import org.hibernate.*;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
+import com.letusgo.HibernateUtil.HibernateUtil;
 import com.letusgo.model.Termteacher;
+
 
 /** 
 * @author  lbx E-mail:1274604226@qq.com 
