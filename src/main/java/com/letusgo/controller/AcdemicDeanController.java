@@ -79,9 +79,9 @@ public class AcdemicDeanController {
 	@RequestMapping("/getallteacher")
 	@ResponseBody
 	public List<DTeacher> getAllTeacher(HttpServletRequest request, HttpServletResponse response) throws Exception{
-		
+		int collegeid=(new GeneralService().getCurrentUserCollegeid());
 		AcdemicDeanService acdemicDeanService= new AcdemicDeanService();
-		return acdemicDeanService.getAllTeacher();
+		return acdemicDeanService.getAllTeacher(collegeid);
 	}
 	
 	 /* 通过工号读取教师信息

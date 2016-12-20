@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.letusgo.dto.DCollege;
 import com.letusgo.dto.DTeacher;
+import com.letusgo.dto.DTermCourseMaster;
 import com.letusgo.service.AcdemicDeanService;
 import com.letusgo.service.AdminService;
 
@@ -123,5 +124,56 @@ public class AdminController {
 		String sn= request.getParameter("sn");
 		AdminService adminService= new AdminService();
 		return adminService.removeAcdemicDean(sn);
+	}
+	
+	 /** 设置教务管理员
+	  * 获取参数sn
+	  * 返回值true,false
+	  * */
+	@RequestMapping("/setadmin")
+	@ResponseBody
+	public String setAdmin(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		request.setCharacterEncoding("UTF-8");
+		String sn= request.getParameter("sn");
+		AdminService adminService= new AdminService();
+		return adminService.setAcdemicDean(sn);
+	}
+	 /** 设置教务管理员
+	  * 获取参数sn
+	  * 返回值true,false
+	  * */
+	@RequestMapping("/removeadmin")
+	@ResponseBody
+	public String removeAdmin(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		request.setCharacterEncoding("UTF-8");
+		String sn= request.getParameter("sn");
+		AdminService adminService= new AdminService();
+		return adminService.removeAcdemicDean(sn);
+	}
+	
+	 /**获取某学院教师信息
+	  * 获取参数collegeid学院id
+	  * 返回值true,false
+	  * */
+	@RequestMapping("/getcollegeteacher")
+	@ResponseBody
+	public List<DTeacher> getCollegeTeacher(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		request.setCharacterEncoding("UTF-8");
+		int collegeid= Integer.valueOf(request.getParameter("collegeid"));
+		AcdemicDeanService acdemicDeanService= new AcdemicDeanService();
+		return acdemicDeanService.getAllTeacher(collegeid);
+	}
+	 /**获取某学院课程信息
+	  * 获取参数collegeid学院id
+	  * 返回值true,false
+	  * */
+	@RequestMapping("/getcollegecourse")
+	@ResponseBody
+	public List<DTermCourseMaster> getCollegeCourse(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		request.setCharacterEncoding("UTF-8");
+		int collegeid= Integer.valueOf(request.getParameter("collegeid"));
+		String term=request.getParameter("term");
+		AcdemicDeanService acdemicDeanService= new AcdemicDeanService();
+		return acdemicDeanService.GetAllCourse(collegeid, term);
 	}
 }

@@ -25,18 +25,7 @@ public class UserDetailsService implements org.springframework.security.core.use
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		User user=null;
-
-
-	    /*
-	     * 在这里填充正确的password,去数据库里取
-	     * */
-	    
-
 		String password=null; 
-//	    String password = "e10adc3949ba59abbe56e057f20f883e"; 
-	    /*
-	     * 在这里填充正确的password,去数据库里取
-	     * */
 		Transaction beginTransaction = HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();//业务开头
 		try {
 			StudentDaoImp studentDaoImp= new StudentDaoImp();

@@ -71,7 +71,7 @@ public class AdminService {
 		beginTransaction.commit();//业务结尾
 		return list2;
 	 }
-	 
+	
 	/**
 	 * 获取某个老师信息
 	 * @param teacher_sn 教师工号
@@ -154,4 +154,60 @@ public class AdminService {
 		 beginTransaction.commit();//业务结尾
 		 return "true";
 	 }	 
+	 /**
+	  * 设置系统管理员
+	  * @param teacher_sn 教师工号
+	  * @return修改是否成功
+	  */
+	 public String setAdmin(String teacher_sn){
+		 Transaction beginTransaction = HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();//业务开头
+		 TeacherDaoImp teacherDaoImp= new TeacherDaoImp();
+		 Teacher teacher =teacherDaoImp.getTeacherBySn(teacher_sn);
+		 
+		 int roleValue;
+		try {
+			roleValue = Integer.valueOf(teacher.getRoleid());
+			if (roleValue<=0 ||roleValue>7) {
+				 return "role error";
+			 }
+			 if (roleValue<4) {
+				teacher.setRoleid(Integer.toString(roleValue+4));
+			 }else{
+				return "false:ready exist";
+		     }
+		} catch (NumberFormatException e) {
+			teacher.setRoleid("5");
+		}
+		 
+		 teacherDaoImp.save(teacher);
+		 beginTransaction.commit();//业务结尾
+		 return "true";
+	 }
+	 
+	 /**
+	  * 取消设置系统管理员
+	  * @param teacher_sn 教师工号
+	  * @return修改是否成功
+	  */
+	 public String removeAdmin(String teacher_sn){
+		 Transaction beginTransaction = HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();//业务开头
+		 TeacherDaoImp teacherDaoImp= new TeacherDaoImp();
+		 Teacher teacher =teacherDaoImp.getTeacherBySn(teacher_sn);
+		 int roleValue=Integer.valueOf(teacher.getRoleid());
+		 if (roleValue<=0 ||roleValue>7) {
+			 return "role error";
+		 }
+		 if (roleValue==5) {
+			teacher.setRoleid("1");
+		 }else{
+			 if (roleValue<4) {
+				 	return "false:ready exist";
+				 }else{
+					teacher.setRoleid(Integer.toString(roleValue-4));	
+			     }
+		}
+		 teacherDaoImp.save(teacher);
+		 beginTransaction.commit();//业务结尾
+		 return "true";
+	 }	
 }

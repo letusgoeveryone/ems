@@ -34,18 +34,19 @@ public class AcdemicDeanService {
 	 * 获取所有教师
 	 * @return所有教师list
 	 */
-	 public List<DTeacher> getAllTeacher(){
-		Transaction beginTransaction = HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();//业务开头
-		List<Teacher> list=HibernateUtil.getSessionFactory().getCurrentSession()
-				.createSQLQuery("select * from teacher;").addEntity(com.letusgo.model.Teacher.class).list();
+	 public List<DTeacher> getAllTeacher(int collegeid){
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Transaction transaction = session.beginTransaction();
+		Query query = session.createQuery("FROM Teacher t WHERE t.college.id = :collegeId");
+		query.setInteger("collegeId", collegeid);
+		List<Teacher> list=query.list();
 		List<DTeacher> list2=new ArrayList<DTeacher>();
 		for (Teacher teacher : list) {
 			list2.add(new DTeacher(teacher.getId(), teacher.getSn(), teacher.getName(), teacher.getPassword(),
 					teacher.getSex(), teacher.getAvatarid(), teacher.getTel(), teacher.getQq(), teacher.getEmail(),
 					teacher.getRegdate(), teacher.getRoleid()));
-			
 		}
-		beginTransaction.commit();//业务结尾
+		transaction.commit();
 		return list2;
 	 }
 	 

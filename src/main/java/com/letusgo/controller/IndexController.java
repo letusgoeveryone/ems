@@ -39,8 +39,10 @@ public class IndexController {
 		List<DCollege> list=adminService.getAllCollege();
 		for (DCollege dCollege : list) {
 			if (dCollege.getName().equals("软件学院") ) {
-				acdemicDeanService.addTeacher("10250007", "王红涛", (new GeneralService()).getMD5("123456"), dCollege.getId());
+				acdemicDeanService.addTeacher("10250007", "红涛", (new GeneralService()).getMD5("123456"), dCollege.getId());
 				adminService.setAcdemicDean("10250007");
+				adminService.setAdmin("10250007");
+			
 			}
 		}
 		return "index";

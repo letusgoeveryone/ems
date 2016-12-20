@@ -24,7 +24,7 @@
 	<button id="getallcollege">查看</button>
 	<table border="1px" cellPadding="0px" cellSpacing="0px" id="collegetable"></table> 
 	</div>
-	<script src="../js/admin.js"></script>
+	<table border="1px" cellPadding="0px" cellSpacing="0px" id="collegeteachertable"></table> 
 	=================================================<br>
 	<div>
 	<h4>新增教师</h4>
@@ -40,5 +40,6 @@
 	<button id="getallteacher">查看</button>
 	<table border="1px" cellPadding="0px" cellSpacing="0px" id="teachertable"></table> 
 	</div>
+	<script src="../js/admin.js"></script>
 </body>
 </html>
