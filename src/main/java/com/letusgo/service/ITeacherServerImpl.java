@@ -7,7 +7,9 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+
 import com.letusgo.HibernateUtil.HibernateUtil;
+
 import com.letusgo.model.Termteacher;
 
 
