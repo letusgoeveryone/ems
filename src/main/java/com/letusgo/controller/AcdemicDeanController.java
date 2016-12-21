@@ -112,8 +112,8 @@ public class AcdemicDeanController {
 		return acdemicDeanService.GetTermCourse(collegeid, term);
 	}
 	
-	 /* 列出某学院某学期所有课程和负责人信息
-	  * 参数term
+	 /* 列出某学院所有课程（包含未开课课程）
+	  * 无参数
 	  * 返回值json
 	  * */
 	@RequestMapping("/getcollegecourse")
@@ -194,6 +194,7 @@ public class AcdemicDeanController {
 		request.setCharacterEncoding("UTF-8");
 		String term= request.getParameter("term");
 		String courseid= request.getParameter("courseid");
+		//待鸿运实现
 		return null;
 	}
 	

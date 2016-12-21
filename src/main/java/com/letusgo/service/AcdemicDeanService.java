@@ -143,7 +143,7 @@ public class AcdemicDeanService {
 	 }
 	 
 	/**
-	 * 获取某学院所有课程
+	 * 列出某学院所有课程（包含未开课课程）
 	 * @return所有教师list
 	 */
 	 public List<DTermCourseMaster> getCollegeCourse(int collegeid){

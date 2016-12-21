@@ -7,10 +7,7 @@ $(function() {
 					$("#selectTerm").append("<option value='"+data[i]+"'>"+data[i]+"</option>");
 					}
 				});
-	$.post("../getcurrentterm",
-			function(data) {
-		 			$("#selectTerm option[value="+data+"]").attr("selected", "true"); 
-				});	
+	
 
 	$('#getallcollege')
 		.click(
