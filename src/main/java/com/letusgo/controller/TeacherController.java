@@ -23,6 +23,15 @@ import com.letusgo.service.ITeacherServerImpl;
 public class TeacherController {
 	
 	/**
+	 *   教师主页面
+	* @return String 教师页面
+	 */
+	@RequestMapping("/index")
+	public String teacherIndex(HttpServletRequest request,HttpServletResponse response){
+		return "teacher/teacher";
+	}
+	
+	/**
 	 * 
 	
 	* @Description: 添加课程介绍
