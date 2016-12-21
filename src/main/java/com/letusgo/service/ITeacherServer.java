@@ -14,24 +14,38 @@ public interface ITeacherServer {
 	
 	* @Description: 添加课程介绍
 	
-	* @param @param TermCourseId 学期课程id
-	* @param @param TeacherId  教师id
-	* @param @param introduce    课程介绍
+	* @param  TermCourseId 学期课程id
+	* @param  TeacherId  教师id
+	* @param  introduce    课程介绍
 	
 	* @return void
 	 */
-	public void SetIntroduce(int TermCourseId, int TeacherId,String introduce) ;
+	public Boolean setIntroduce(int TermCourseId, int TeacherId,String introduce) ;
 	
 	/**
 	 * 
 	
 	* @Description: 添加课程大纲
 	
-	* @param @param TermCourseId 学期课程id
-	* @param @param TeacherId  教师id
-	* @param @param syllabus     课程大纲
+	* @param  TermCourseId 学期课程id
+	* @param  TeacherId  教师id
+	* @param  syllabus     课程大纲
 	
 	* @return void
 	 */
-	public void SetSyllabus(int TermCourseId, int TeacherId,String syllabus);
+	public Boolean setSyllabus(int TermCourseId, int TeacherId,String syllabus);
+	
+	/**
+	 * 
+	
+	* @Description: 添加班级
+	
+	* @param  teacherId
+	* @param  classId
+	* @param     
+	
+	* @return Boolean
+	 */
+	public Boolean addClass(int teacherId,int classId);
+	
 }

@@ -18,7 +18,7 @@ import com.letusgo.model.Termteacher;
 */
 
 public class ITeacherServerImpl implements ITeacherServer{
-	public void SetIntroduce(int TermCourseId, int TeacherId,String introduce) {
+	public Boolean setIntroduce(int TermCourseId, int TeacherId,String introduce) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction transaction = session.beginTransaction();
         Query query = session.createQuery("FROM Termteacher t where t.teacher.id = :tid and t.termcourse.id = :cid");
@@ -27,9 +27,10 @@ public class ITeacherServerImpl implements ITeacherServer{
         Termteacher termteacher = (Termteacher) query.uniqueResult();
         termteacher.getTermcourse().getCourse().setIntroduce(introduce);
         transaction.commit();
+		return true;
     }
 
-    public void SetSyllabus(int TermCourseId, int TeacherId,String syllabus) {
+    public Boolean setSyllabus(int TermCourseId, int TeacherId,String syllabus) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction transaction = session.beginTransaction();
         Query query = session.createQuery("FROM Termteacher t where t.teacher.id = :tid and t.termcourse.id = :cid");
@@ -38,5 +39,15 @@ public class ITeacherServerImpl implements ITeacherServer{
         Termteacher termteacher = (Termteacher) query.uniqueResult();
         termteacher.getTermcourse().getCourse().setIntroduce(syllabus);
         transaction.commit();
+		return true;
     }
+
+	/* (non-Javadoc)
+	 * @see com.letusgo.service.ITeacherServer#addClass(int, int)
+	 */
+	@Override
+	public Boolean addClass(int teacherId, int classId) {
+		
+		return null;
+	}
 }
