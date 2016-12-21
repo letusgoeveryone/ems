@@ -13,32 +13,33 @@
 	<a href="../">首页</a>|<a href="../logout">登出</a><br>
 	=================================================<br>
 	<div>
-	<h4>新增学院</h4>
-	学院：<input type="text" id="collegename" value="软件学院"><br>
-	学期：<input type="text" id="collegeterm" value="2016-01">
-	<button id="addcollege">新增</button>
+		<h4>新增学院</h4>
+		学院：<input type="text" id="collegename" value="软件学院"><br>
+		学期：<input type="text" id="collegeterm" value="2016-01">
+		<button id="addcollege">新增</button>
 	</div>
 	=================================================<br>
 	<div>
-	<h4>查看学院</h4>
-	<button id="getallcollege">查看</button>
-	<table border="1px" cellPadding="0px" cellSpacing="0px" id="collegetable"></table> 
-	</div>
-	<table border="1px" cellPadding="0px" cellSpacing="0px" id="collegeteachertable"></table> 
+		<h4>查看学院</h4>
+		<button id="getallcollege">查看</button>
+		<table border="1px" cellPadding="0px" cellSpacing="0px" id="collegetable"></table>
+		<select id="selectTerm" ></select><br>
+		<table border="1px" cellPadding="0px" cellSpacing="0px" id="collegeteachertable"></table>
+	</div> 
 	=================================================<br>
 	<div>
-	<h4>新增教师</h4>
-	工号：<input type="text" id="username" value="10250007"><br>
-	姓名：<input type="text" id="teachername" value="王红涛"><br>
-	密码：<input type="text" id="password" value="123456"><br>
-	学院id：<input type="text" id="collegeid" value="1">
-	<button id="addteacher">新增</button>
+		<h4>新增教师</h4>
+		工号：<input type="text" id="username" value="10250007"><br>
+		姓名：<input type="text" id="teachername" value="王红涛"><br>
+		密码：<input type="text" id="password" value="123456"><br>
+		学院id：<input type="text" id="collegeid" value="1">
+		<button id="addteacher">新增</button>
 	</div>
 	=================================================<br>
 	<div>
-	<h4>查看教师</h4>
-	<button id="getallteacher">查看</button>
-	<table border="1px" cellPadding="0px" cellSpacing="0px" id="teachertable"></table> 
+		<h4>查看教师</h4>
+		<button id="getallteacher">查看</button>
+		<table border="1px" cellPadding="0px" cellSpacing="0px" id="teachertable"></table> 
 	</div>
 	<script src="../js/admin.js"></script>
 </body>

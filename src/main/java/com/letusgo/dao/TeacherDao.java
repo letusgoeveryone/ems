@@ -93,6 +93,25 @@ public interface TeacherDao {
      * @return 返回老师对象的集合
      */
     public Collection<Teacher> getAllTeacherBySn(Collection<String> teaSns);
-
+     
     
+    /**
+     *设置学期课程<br>
+     * 如果根据参数可以查到已有对应的学期课程，则不作为
+     * @param teacherId 教师id
+     * @param courseId 课程id
+     * @param term 学期
+     * @
+     */
+    public void setTermCourse(int teacherId,int courseId,String term);
+    
+    /**
+     *设置学期课程<br>
+     * 如果根据参数可以查到已有对应的学期课程，则不作为
+     * @param teacherId 教师id
+     * @param courseId 课程id
+     * @param term 学期
+     * @
+     */
+    public void setTermCourse(int courseId,String term);
 }

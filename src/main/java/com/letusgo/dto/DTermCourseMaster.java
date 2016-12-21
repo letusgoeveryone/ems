@@ -1,6 +1,7 @@
 package com.letusgo.dto;
 
 public class DTermCourseMaster {
+	private int id;
 	private String number;
 	private String courseName;
 	private String sn;
@@ -27,6 +28,16 @@ public class DTermCourseMaster {
 		this.teaName = teaName;
 	}
 
+	public int getId() {
+		return id;
+	}
+
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+
 	public void setNumber(String number) {
 		this.number = number;
 	}
@@ -48,12 +59,26 @@ public class DTermCourseMaster {
 	public void setTeaName(String teaName) {
 		this.teaName = teaName;
 	}
+
+
+	public DTermCourseMaster(int id, String number, String courseName, String sn, String teaName) {
+		super();
+		this.id = id;
+		this.number = number;
+		this.courseName = courseName;
+		this.sn = sn;
+		this.teaName = teaName;
+	}
+
+
 	@Override
 	public String toString() {
-		return "TermCourseMaster [number=" + number + ", courseName=" + courseName + ", sn=" + sn + ", teaName="
-				+ teaName + "]";
+		return "DTermCourseMaster [id=" + id + ", number=" + number + ", courseName=" + courseName + ", sn=" + sn
+				+ ", teaName=" + teaName + "]";
 	}
-	
+
+
+
 	
 
 }

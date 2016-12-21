@@ -1,4 +1,14 @@
+var tmpcollege=0;
 $(function() {
+	$("#selectTerm").hide();	
+	$.getJSON("../getallterm",
+			function(data) {
+				for (var i = 0 ; i < data.length; i++) {
+					$("#selectTerm").append("<option value='"+data[i]+"'>"+data[i]+"</option>");
+					}
+				});
+	
+
 	$('#getallcollege')
 		.click(
 			function() {
@@ -15,6 +25,7 @@ $(function() {
 							}
 						});
 					});
+	
 	$('#addteacher').click(function() {
 		$.post("addteacher", {
 			sn : $("#sn").val(),
@@ -30,6 +41,7 @@ $(function() {
 			;
 		});
 	});
+	
 	$('#getallteacher')
 	.click(
 		function() {
@@ -50,8 +62,17 @@ $(function() {
 						}
 					});
 				});
+	$("#selectTerm").change(function(){
+		if(tmpcollege!=0){
+			showcoursedetail(tmpcollege);
+		}
+	
+	});
 });
+
+
 function showteacherdetail(collegeid) {
+	$("#selectTerm").hide();
 	$("#collegeteachertable").empty();
 	$("#collegeteachertable").append("<tr><td>工号</td><td>姓名</td><td>性别</td><td>操作</td></tr>");
 	$.getJSON("getcollegeteacher?collegeid="+collegeid,
@@ -66,9 +87,11 @@ function showteacherdetail(collegeid) {
 				});
 }
 function showcoursedetail(collegeid) {
+	$("#selectTerm").show();
+	tmpcollege=collegeid;
 	$("#collegeteachertable").empty();
 	$("#collegeteachertable").append("<tr><td>课程编号</td><td>课程名</td><td>负责人工号</td><td>负责人姓名</td><td>操作</td></tr>");
-	$.getJSON("getcollegecourse?term=2016-01&collegeid="+collegeid,
+	$.getJSON("getcollegecourse?term="+$("#selectTerm").val()+"&collegeid="+collegeid,
 			function(data) {
 				for (var i = 0, l = data.length; i < l; i++) {
 					$("#collegeteachertable").append("<tr><td>"+ data[i]["number"]+ "</td><td>"+ data[i]["courseName"]+ "</td><td>"
@@ -79,4 +102,6 @@ function showcoursedetail(collegeid) {
 							+ "&sn=10250007'>设置课程负责人</a>"+ "</td></tr>");
 							}
 				});
+	
+
 }

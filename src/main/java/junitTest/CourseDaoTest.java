@@ -27,7 +27,10 @@ public class CourseDaoTest {
 	
 	public static void main(String[] args) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		new TeacherDaoImp();
+		Transaction transaction = session.beginTransaction();
+		new TeacherDaoImp().setTermCourse( 1,3, "2016-02");
+		transaction.commit();
+		
 	}
 	
 //	public void name() {

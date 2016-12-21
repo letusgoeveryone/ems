@@ -56,8 +56,17 @@ public class Termcourse implements Serializable {
 
     public Termcourse() {
     }
+    
+    
+    public Termcourse(String term, Course course, Teacher teacher) {
+		super();
+		this.term = term;
+		this.course = course;
+		this.teacher = teacher;
+	}
 
-    public Termcourse(Integer id) {
+
+	public Termcourse(Integer id) {
         this.id = id;
     }
 
