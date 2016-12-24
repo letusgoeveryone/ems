@@ -1,25 +1,38 @@
 package com.letusgo.controller;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
-
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.letusgo.daoImp.TeacherDaoImp;
 import com.letusgo.dto.DTeacher;
 import com.letusgo.dto.DTeacherClass;
 import com.letusgo.dto.DTermCourseMaster;
+import com.letusgo.dto.DTermTeacher;
 import com.letusgo.model.Course;
 import com.letusgo.model.Teacher;
 import com.letusgo.service.AcdemicDeanService;
 import com.letusgo.service.GeneralService;
+
 
 @Controller
 @RequestMapping("/acdemicdean/")
@@ -187,7 +200,7 @@ public class AcdemicDeanController {
 	 /* 获取某课由谁来教，有哪些班级
 	  * 参数term, courseid（collegeId学院id从后台取, classnumber为-1则不限制）
 	  * 返回值
-	  * */
+	  * 
 	@RequestMapping("/getcourseteacher")
 	@ResponseBody
 	public List<DTeacherClass> getcourseteacher(HttpServletRequest request, HttpServletResponse response) throws Exception{
@@ -197,6 +210,32 @@ public class AcdemicDeanController {
 		//待鸿运实现
 		return null;
 	}
+	*/
+	 /* 获取某课由谁来教，有哪些班级
+	  * 参数term, courseid（collegeId学院id从后台取, classnumber为-1则不限制）
+	  * 返回值
+	  * */
+	@RequestMapping("/gettermteacher")
+	@ResponseBody
+	public List<DTermTeacher> gettermteacher(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		request.setCharacterEncoding("UTF-8");
+		String termCourseid= request.getParameter("termcourseid");
+		AcdemicDeanService acdemicDeanService= new AcdemicDeanService();
+		return acdemicDeanService.getTermTeacher(Integer.valueOf(termCourseid));
+	}	
+	
+	
+	@RequestMapping("/settermteacher")
+	@ResponseBody
+	public String settermteacher(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		request.setCharacterEncoding("UTF-8");
+
+		String termcourseid= request.getParameter("termcourseid");
+		String maxclass= request.getParameter("maxclass");
+		String teachersn= request.getParameter("teachersn");
+		AcdemicDeanService acdemicDeanService= new AcdemicDeanService();
+		return acdemicDeanService.setTermTeacher(Integer.valueOf(termcourseid), Integer.valueOf(maxclass), teachersn);
+	}	
 	
 	 /* 新增某学院某学期课程
 	  * 参数number,name（collegeId学院id从后台取）
@@ -212,5 +251,41 @@ public class AcdemicDeanController {
 		AcdemicDeanService acdemicDeanService= new AcdemicDeanService();
 		return acdemicDeanService.setTermCourse(teachersn, courseId, term);
 	}
+	
+	 @RequestMapping(value = "/batchaddcourse",method = RequestMethod.POST)
+	 public @ResponseBody String course_submit(HttpServletRequest request,@RequestParam("file") MultipartFile file) throws  Exception {
+	      if(!file.isEmpty()){         
+	            try {  
+	                InputStream in;  
+	                try (FileOutputStream os = new FileOutputStream("/"+file.getOriginalFilename())) {
+	                    in = file.getInputStream();
+	                    Workbook wb = null;
+	                    wb = new XSSFWorkbook(in);
+	        			Sheet sheet = wb.getSheetAt(0); // 获得第一个表单
+	        			Iterator<Row> rows = sheet.rowIterator(); // 获得第一个表单的迭代器
+	        			while (rows.hasNext()) {
+	        				Row row = rows.next(); // 获得行数据
+	        				System.out.print("Row #" + row.getRowNum()); // 获得行号从0开始
+	        				Iterator<Cell> cells = row.cellIterator(); // 获得第一行的迭代器
+	        				while (cells.hasNext()) {
+	        					Cell cell = cells.next();
+	        					System.out.print("Cell # " + cell.getColumnIndex());
+	        					System.out.print(cell.getStringCellValue());
+	        				}
+	        				System.out.println();
+	        			}
+	                }  
+	                in.close();  
+	            } catch (FileNotFoundException e) {  
+	                // TODO Auto-generated catch block  
+	                e.printStackTrace();  
+	            }  
+	      }
+	      return "1";
+
+	  }
+	  
+
+	
 	
 }

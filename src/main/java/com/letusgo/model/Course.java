@@ -72,13 +72,13 @@ public class Course implements Serializable {
     }
     
 
+    public Course(String number, String name, College college)
+    {
+      this.number = number;
+      this.name = name;
+      this.college = college;
+    }
 
-	public Course(String number, String name, int collegeId) {
-		super();
-		this.number = number;
-		this.name = name;
-		
-	}
 
 	public Course(Integer id) {
         this.id = id;

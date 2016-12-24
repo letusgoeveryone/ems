@@ -46,9 +46,28 @@
 	<div>
 	<h4>查看本学院学期课程</h4>
 	<select id="selectTerm2" ></select><button id="gettermcourse">查看</button>
-	<table border="1px" cellPadding="0px" cellSpacing="0px" id="coursetable"></table> 
+	<table border="1px" cellPadding="0px" cellSpacing="0px" id="coursetable"></table>
+	欲新增任课教师的开课id：<input type="text" id="kkid" value=""><br>
+	新增任课教师：<input type="text" id="newcoursesn" value="10250007">开班限额：<input type="text" id="newcourseclass" value="-1"><button id="addnewcoursesn">给老师开课开课</button>
+	<table border="1px" cellPadding="0px" cellSpacing="0px" id="termcourseteachertable"></table> 
+	<table border="1px" cellPadding="0px" cellSpacing="0px" id="termcourseclasstable"></table> 
 	</div>
-	
+	=================================================<br>
+	<div>
+	<h4>Excel批量新增本学院课程</h4>
+		<form method="POST" enctype="multipart/form-data" id="batchcourseform">
+         	<input type="file" name="file" id="batchcoursefile"><br>
+			<button id="batchcoursebtn">批量增加课程</button>
+        </form>
+	</div>
+	=================================================<br>
+	<div>
+	<h4>Excel批量新增本学院教师</h4>
+		<form method="POST" enctype="multipart/form-data" id="batchteacherform">
+         	<input type="file" name="file" id="batchteacherfile"><br>
+			<button id="batchteacherbtn">批量增加课程</button>
+        </form>
+	</div>
 <script src="../js/acdemicdean.js"></script>
 </body>
 </html>

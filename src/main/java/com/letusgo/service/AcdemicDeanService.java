@@ -22,6 +22,7 @@ import com.letusgo.daoImp.TeacherDaoImp;
 import com.letusgo.dto.DTeacher;
 import com.letusgo.dto.DTeacherClass;
 import com.letusgo.dto.DTermCourseMaster;
+import com.letusgo.dto.DTermTeacher;
 import com.letusgo.model.College;
 import com.letusgo.model.Course;
 import com.letusgo.model.Teacher;
@@ -142,6 +143,36 @@ public class AcdemicDeanService {
 		return list2;
 	 }
 	 
+	  public List<DTermTeacher> getTermTeacher(int termCourseid)
+	  {
+	    Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+	    Transaction transaction = session.beginTransaction();
+	    Query query = session.createQuery("FROM Termteacher t WHERE t.termcourse.id = :termcourseid");
+	    query.setInteger("termcourseid", termCourseid);
+	    List<Termteacher> list = query.list();
+	    List<DTermTeacher> list2 = new ArrayList();
+	    for (Termteacher termteacher : list) {
+	      DTermTeacher temp = new DTermTeacher(termteacher.getId().intValue(), termteacher.getTeacher().getSn(), termteacher.getTeacher().getName(), termteacher.getMaxclass().intValue());
+	      list2.add(temp);
+	    }
+	    transaction.commit();
+	    return list2;
+	  }
+
+	  public String setTermTeacher(int termCourseid, int maxclass, String teachersn)
+	  {
+	    Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+	    Transaction transaction = session.beginTransaction();
+	    Termteacher termteacher = new Termteacher();
+	    termteacher.setTeacher(new TeacherDaoImp().getTeacherBySn(teachersn));
+	    termteacher.setMaxclass(Integer.valueOf(maxclass));
+	    termteacher.setTermcourse((Termcourse)new DaoImpl().find(Termcourse.class, termCourseid));
+	    session.save(termteacher);
+	    transaction.commit();
+	    return "true";
+	  }
+	 
+	 
 	/**
 	 * 列出某学院所有课程（包含未开课课程）
 	 * @return所有教师list
@@ -173,7 +204,7 @@ public class AcdemicDeanService {
 	  */
 	 public String addCourse(int collegeid,String courseNmber,String courseName){
 			Transaction beginTransaction = HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();//业务开头
-			Course course=new Course(courseNmber, courseName,collegeid);
+			Course course=new Course(courseNmber, courseName,new DaoImpl<College>().find(College.class, collegeid));
 			CourseDaoImp courseDaoImp= new CourseDaoImp();
 			courseDaoImp.addCourse(course);
 			beginTransaction.commit();//业务结尾
