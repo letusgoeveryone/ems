@@ -3,6 +3,9 @@
  */
 package com.letusgo.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -10,6 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.letusgo.model.Student;
+import com.letusgo.service.ITeacherServer;
 import com.letusgo.service.ITeacherServerImpl;
 
 /** 
@@ -46,7 +51,8 @@ public class TeacherController {
 		int TermCourseId = Integer.parseInt(request.getParameter("TermCourseId"));
 		int TeacherId = Integer.parseInt(request.getParameter("TeacherId"));
 		String introduce = request.getParameter("introduce");
-		Boolean a =  new ITeacherServerImpl().setIntroduce(TermCourseId, TeacherId, introduce);
+		ITeacherServer it = new ITeacherServerImpl();
+		Boolean a = it.setIntroduce(TermCourseId, TeacherId, introduce);
 		if(a)
 			return "1";
 		return "0";
@@ -67,7 +73,8 @@ public class TeacherController {
 		int TermCourseId = Integer.parseInt(request.getParameter("TermCourseId"));
 		int TeacherId = Integer.parseInt(request.getParameter("TeacherId"));
 		String syllabus = request.getParameter("syllabus");
-		Boolean a =  new ITeacherServerImpl().setSyllabus(TermCourseId, TeacherId, syllabus);
+		ITeacherServer it = new ITeacherServerImpl();
+		Boolean a =  it.setSyllabus(TermCourseId, TeacherId, syllabus);
 		if(a)
 			return "1";
 		return "0";
@@ -89,6 +96,21 @@ public class TeacherController {
 		
 		return null;
 	}
+	
+	/**
+	 * 查询本班学生
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping("/getstudent")
+	public @ResponseBody String getstudent(HttpServletRequest request,HttpServletResponse response){
+		List <Student> list = new ArrayList<Student>();
+		ITeacherServer it = new ITeacherServerImpl();
+		list = it.getStudent(1, 1);
+		return null;
+	}
+	
 	
 
 }

@@ -2,6 +2,9 @@
  * 
  */
 package com.letusgo.service;
+
+import java.util.List;
+
 /** 
 * @author  lbx E-mail:1274604226@qq.com 
 * @version createdata：2016年12月19日 下午8:50:15 
@@ -48,4 +51,5 @@ public interface ITeacherServer {
 	 */
 	public Boolean addClass(int teacherId,int classId);
 	
+	public List getStudent(int termCourseId,int teaId);
 }
