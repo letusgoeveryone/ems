@@ -55,6 +55,7 @@
 	=================================================<br>
 	<div>
 	<h4>Excel批量新增本学院课程</h4>
+	建议您先<a href="../templet/dean_course.xlsx" target="_blank">下载模板</a>，编辑完模板之后在这里选择上传，系统会从第二行（含）之后开始添加数据。<br>
 		<form method="POST" enctype="multipart/form-data" id="batchcourseform">
          	<input type="file" name="file" id="batchcoursefile"><br>
 			<button id="batchcoursebtn">批量增加课程</button>
@@ -63,6 +64,7 @@
 	=================================================<br>
 	<div>
 	<h4>Excel批量新增本学院教师</h4>
+	建议您先<a href="../templet/dean_teacher.xlsx" target="_blank">下载模板</a>，编辑完模板之后在这里选择上传，系统会从第二行（含）之后开始添加数据。<br>
 		<form method="POST" enctype="multipart/form-data" id="batchteacherform">
          	<input type="file" name="file" id="batchteacherfile"><br>
 			<button id="batchteacherbtn">批量增加课程</button>

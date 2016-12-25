@@ -71,12 +71,10 @@ public class GeneralService {
 				beginTransaction.commit();//业务结尾 
 				return student.getCollege().getId();
 			} catch (Exception e1) {
-				
 			}finally {
 				beginTransaction.commit();//业务结尾   
-		        return 0;
 			}
 		}
-		
+		   return 0;
      }
 }

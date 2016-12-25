@@ -1,5 +1,9 @@
 package com.letusgo.service;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -8,11 +12,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.constraints.Null;
 
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.letusgo.HibernateUtil.HibernateUtil;
 import com.letusgo.daoImp.CollegeDaoImp;
@@ -361,5 +373,125 @@ public class AcdemicDeanService {
 		 transaction.commit();
 		 return "true";
 	 
+	 }
+	 
+	 /**
+	  * 批量新增课程
+	  * @param batchcourse
+	  * @return
+	 * @throws Exception 
+	  */
+	 public String batchAddCourse(MultipartFile file) throws Exception{
+		 Transaction beginTransaction = HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();//业务开头
+		 if(!file.isEmpty()){         
+			 try {  
+				 InputStream in;  
+				 try (FileOutputStream os = new FileOutputStream("/"+file.getOriginalFilename())) {
+					 in = file.getInputStream();
+					 Workbook wb = null;
+					 List<Course> list=new ArrayList<Course>();
+					 College college=(new DaoImpl<College>()).find(College.class, (new GeneralService().getCurrentUserCollegeid()));
+					 if (file.getOriginalFilename().toLowerCase().endsWith(".xlsx")) {
+						 wb = new XSSFWorkbook(in);
+					 } else {
+						 wb = new HSSFWorkbook(in);
+					 }
+				Sheet sheet = wb.getSheetAt(0); // 获得第一个表单
+				Iterator<Row> rows = sheet.rowIterator(); // 获得第一个表单的迭代器
+				while (rows.hasNext()) {
+					Row row = rows.next(); // 获得行数据
+					if (row.getRowNum()>0) {// 获得行号从0开始
+						Iterator<Cell> cells = row.cellIterator(); // 获得第一行的迭代器
+						Course tmpcourse=new Course();
+						while (cells.hasNext()) {
+							Cell cell = cells.next();
+							if (cell.getColumnIndex()==0) {
+								tmpcourse.setNumber(cell.getStringCellValue());
+							}
+							if (cell.getColumnIndex()==1) {
+								tmpcourse.setName(cell.getStringCellValue());
+							}
+						}
+						if (!(tmpcourse.getName()==null || tmpcourse.getNumber()==null)) {
+							tmpcourse.setCollege(college);
+							list.add(tmpcourse);
+						}
+						
+					}
+				}
+				CourseDaoImp courseDaoImp= new CourseDaoImp();
+				courseDaoImp.addAllCourse(list);
+		    }  
+		    in.close();
+		    beginTransaction.commit();//业务结尾
+		    return "true";
+		        } catch (FileNotFoundException e) {  
+		            e.printStackTrace();  
+		        }  
+		  }
+		  beginTransaction.commit();//业务结尾
+		  return "has Exception";
+	 }
+	 
+	 /**
+	  * 批量新增教师
+	  * @param batchteacher
+	  * @return
+	  * @throws Exception 
+	  */
+	 public String batchAddTeacher(MultipartFile file) throws Exception{
+		 Transaction beginTransaction = HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();//业务开头
+	      if(!file.isEmpty()){         
+	            try {  
+	                InputStream in;  
+	                try (FileOutputStream os = new FileOutputStream("/"+file.getOriginalFilename())) {
+	                    in = file.getInputStream();
+	                    Workbook wb = null;
+	                    List<Teacher> list=new ArrayList<Teacher>();
+	                    College college=(new DaoImpl<College>()).find(College.class, (new GeneralService().getCurrentUserCollegeid()));
+	                    if (file.getOriginalFilename().toLowerCase().endsWith(".xlsx")) {
+	                    	wb = new XSSFWorkbook(in);
+						} else {
+							wb = new HSSFWorkbook(in);
+						}
+	        			Sheet sheet = wb.getSheetAt(0); // 获得第一个表单
+	        			Iterator<Row> rows = sheet.rowIterator(); // 获得第一个表单的迭代器
+	        			while (rows.hasNext()) {
+	        				Row row = rows.next(); // 获得行数据
+	        				if (row.getRowNum()>0) {// 获得行号从0开始
+		        				Iterator<Cell> cells = row.cellIterator(); // 获得第一行的迭代器
+		        				Teacher tmpteacher=new Teacher();
+		        				while (cells.hasNext()) {
+		        					Cell cell = cells.next();
+		        					if (cell.getColumnIndex()==0) {
+		        						tmpteacher.setSn(cell.getStringCellValue());
+									}
+		        					if (cell.getColumnIndex()==1) {
+		        						tmpteacher.setName(cell.getStringCellValue());
+									}
+		        					if (cell.getColumnIndex()==2) {
+		        						tmpteacher.setPassword(new GeneralService().getMD5(cell.getStringCellValue()));
+									}
+		        				}
+		        				if (!(tmpteacher.getName()==null || tmpteacher.getSn()==null || tmpteacher.getPassword()==null)) {
+		        					tmpteacher.setCollege(college);
+		        					list.add(tmpteacher);
+								}
+		        				
+							}
+	        			}
+	        			TeacherDaoImp teacherDaoImp =new TeacherDaoImp();
+	        			teacherDaoImp.addAllTeacher(list);
+	                }
+	                in.close(); 
+	                beginTransaction.commit();//业务结尾
+	                return "true";
+	            } catch (FileNotFoundException e) {  
+	                // TODO Auto-generated catch block  
+	                e.printStackTrace();  
+	            }  
+		  }
+		  beginTransaction.commit();//业务结尾
+		  return "has Exception";
 	 }
 }
