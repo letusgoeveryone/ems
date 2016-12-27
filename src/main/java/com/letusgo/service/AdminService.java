@@ -239,7 +239,6 @@ public class AdminService {
 					 in = file.getInputStream();
 					 Workbook wb = null;
 					 List<College> list=new ArrayList<College>();
-					 //College college=(new DaoImpl<College>()).find(College.class, collegeid);
 					 if (file.getOriginalFilename().toLowerCase().endsWith(".xlsx")) {
 						 wb = new XSSFWorkbook(in);
 					 } else {
@@ -251,20 +250,19 @@ public class AdminService {
 					Row row = rows.next(); // 获得行数据
 					if (row.getRowNum()>0) {// 获得行号从0开始
 						Iterator<Cell> cells = row.cellIterator(); // 获得第一行的迭代器
-						College tmpcourse=new College();
+						College tmpcollege=new College();
 						while (cells.hasNext()) {
 							Cell cell = cells.next();
 							if (cell.getColumnIndex()==0) {
-//								tmpcourse.setNumber(cell.getStringCellValue());
+								tmpcollege.setName(cell.getStringCellValue());
 							}
 							if (cell.getColumnIndex()==1) {
-//								tmpcourse.setName(cell.getStringCellValue());
+								tmpcollege.setCurrterm(cell.getStringCellValue());
 							}
 						}
-//						if (!(tmpcourse.getName()==null || tmpcourse.getNumber()==null)) {
-							//tmpcourse.setCollege(college);
-							list.add(tmpcourse);
-//						}
+						if (!(tmpcollege.getName()==null)) {
+							list.add(tmpcollege);
+						}
 						
 					}
 				}
@@ -297,7 +295,6 @@ public class AdminService {
 	                    in = file.getInputStream();
 	                    Workbook wb = null;
 	                    List<Teacher> list=new ArrayList<Teacher>();
-	                    //College college=(new DaoImpl<College>()).find(College.class, collegeid);
 	                    if (file.getOriginalFilename().toLowerCase().endsWith(".xlsx")) {
 	                    	wb = new XSSFWorkbook(in);
 						} else {
@@ -310,6 +307,7 @@ public class AdminService {
 	        				if (row.getRowNum()>0) {// 获得行号从0开始
 		        				Iterator<Cell> cells = row.cellIterator(); // 获得第一行的迭代器
 		        				Teacher tmpteacher=new Teacher();
+		        				College college=null;
 		        				while (cells.hasNext()) {
 		        					Cell cell = cells.next();
 		        					if (cell.getColumnIndex()==0) {
@@ -321,12 +319,28 @@ public class AdminService {
 		        					if (cell.getColumnIndex()==2) {
 		        						tmpteacher.setPassword(new GeneralService().getMD5(cell.getStringCellValue()));
 									}
+		        					if (cell.getColumnIndex()==3) {//学院，可能是id，也可能是名字
+		        						if (cell.getStringCellValue().endsWith("院") || cell.getStringCellValue().endsWith("部")) {
+		        							CollegeDaoImp collegeDaoImp =new CollegeDaoImp();
+			        						college=collegeDaoImp.getCollegeByName(cell.getStringCellValue());
+										}else {
+											CollegeDaoImp collegeDaoImp =new CollegeDaoImp();
+											int collegeid=-1;
+											try {
+												collegeid=Integer.valueOf(cell.getStringCellValue());
+												college=(new DaoImpl<College>()).find(College.class, collegeid);
+											} catch (NumberFormatException e) {
+												
+											}
+										}
+		        						if (college!=null) {
+		        							tmpteacher.setCollege(college);
+										}
+									}
 		        				}
-		        				if (!(tmpteacher.getName()==null || tmpteacher.getSn()==null || tmpteacher.getPassword()==null)) {
-		        					//tmpteacher.setCollege(college);
+		        				if (!(tmpteacher.getName()==null || tmpteacher.getSn()==null || tmpteacher.getPassword()==null || tmpteacher.getCollege()==null)) {
 		        					list.add(tmpteacher);
 								}
-		        				
 							}
 	        			}
 	        			TeacherDaoImp teacherDaoImp =new TeacherDaoImp();

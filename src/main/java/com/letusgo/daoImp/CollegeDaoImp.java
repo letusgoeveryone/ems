@@ -22,7 +22,6 @@ public class CollegeDaoImp extends DaoImpl<College> implements com.letusgo.dao.C
         
         getSession().save(college);
     }
-    
 
     public void addAllCollege(Collection<College> colleges){
         for (College college : colleges) {
@@ -59,22 +58,17 @@ public class CollegeDaoImp extends DaoImpl<College> implements com.letusgo.dao.C
 
     @Override
     public void updateCollegeByName(String name) {
-        
-        College   college = getCollegeByName(name);
+        College college = getCollegeByName(name);
         getSession().update(college);
     }
 
     @Override
     public College getCollegeByName(String name) {
-        
-        Query namedQuery = getSession().getNamedQuery("College.findByName");
-        getSession().createSQLQuery(name);
-        return (College) namedQuery.uniqueResult();
+        return (College) getSession().getNamedQuery("College.findByName").setString("name", name).uniqueResult();
     }
 
     @Override
     public Collection<College> getAllCollege() {
-        
         return getSession().getNamedQuery("College.findAll").list();
     }
     

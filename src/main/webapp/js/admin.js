@@ -68,6 +68,54 @@ $(function() {
 		}
 	
 	});
+	$('#batchcollegebtn').click(function() {
+        var formData = new FormData($("#batchcollegeform")[0]);
+
+        if($("#batchcollegefile").val()===""){
+            alert("请选择要上传的表格文件");
+            return false;
+        }else{
+            $.ajax({
+                url: 'batchaddcollege',
+                type: 'POST',
+                data:formData,
+                async: false,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (returndata) {
+                	alert(returndata);
+                },
+                error: function (returndata) {
+                    alert("上传失败!");
+                }
+            });
+       }
+	});
+	
+	$('#batchteacherbtn').click(function() {
+        var formData = new FormData($("#batchteacherform")[0]);
+        if($("#batchteacherfile").val()===""){
+            alert("请选择要上传的文件");
+            return false;
+        }else{
+            $.ajax({
+                url: 'batchaddteacher',
+                type: 'POST',
+                data:formData,
+                async: false,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (returndata) {
+                	alert(returndata);
+                },
+                error: function (returndata) {
+                    alert("上传失败!");
+                }
+            });
+       }
+	});
 });
 
 

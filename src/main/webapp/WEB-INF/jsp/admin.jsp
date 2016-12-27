@@ -49,7 +49,7 @@
 		<form method="POST" enctype="multipart/form-data" id="batchcollegeform">
          	<input type="file" name="file" id="batchcollegefile"><br>
         </form>
-        <button id="batchcollegebtn">批量增加课程</button>
+        <button id="batchcollegebtn">批量增加学院</button>
 	</div>
 	=================================================<br>
 	<div>

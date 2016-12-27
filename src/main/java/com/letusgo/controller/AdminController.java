@@ -7,13 +7,17 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.letusgo.dto.DCollege;
 import com.letusgo.dto.DTeacher;
 import com.letusgo.dto.DTermCourseMaster;
 import com.letusgo.service.AcdemicDeanService;
 import com.letusgo.service.AdminService;
+import com.letusgo.service.GeneralService;
 
 @Controller
 @RequestMapping("/admin/")
@@ -175,5 +179,17 @@ public class AdminController {
 		String term=request.getParameter("term");
 		AcdemicDeanService acdemicDeanService= new AcdemicDeanService();
 		return acdemicDeanService.GetTermCourse(collegeid, term);
+	}
+	
+	@RequestMapping(value = "/batchaddcollege",method = RequestMethod.POST)
+	public @ResponseBody String course_submit(HttpServletRequest request,@RequestParam("file") MultipartFile file) throws  Exception {
+		AdminService adminService=new AdminService();
+		return adminService.batchAddcollege(file);
+	}
+	  
+	@RequestMapping(value = "/batchaddteacher",method = RequestMethod.POST)
+	public @ResponseBody String teacher_submit(HttpServletRequest request,@RequestParam("file") MultipartFile file) throws  Exception {
+		AdminService adminService=new AdminService();
+		return adminService.batchAddTeacher(file);
 	}
 }
