@@ -381,7 +381,7 @@ public class AcdemicDeanService {
 	  * @return
 	 * @throws Exception 
 	  */
-	 public String batchAddCourse(MultipartFile file) throws Exception{
+	 public String batchAddCourse(MultipartFile file,int collegeid) throws Exception{
 		 Transaction beginTransaction = HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();//业务开头
 		 if(!file.isEmpty()){         
 			 try {  
@@ -390,7 +390,7 @@ public class AcdemicDeanService {
 					 in = file.getInputStream();
 					 Workbook wb = null;
 					 List<Course> list=new ArrayList<Course>();
-					 College college=(new DaoImpl<College>()).find(College.class, (new GeneralService().getCurrentUserCollegeid()));
+					 College college=(new DaoImpl<College>()).find(College.class, collegeid);
 					 if (file.getOriginalFilename().toLowerCase().endsWith(".xlsx")) {
 						 wb = new XSSFWorkbook(in);
 					 } else {
@@ -439,7 +439,7 @@ public class AcdemicDeanService {
 	  * @return
 	  * @throws Exception 
 	  */
-	 public String batchAddTeacher(MultipartFile file) throws Exception{
+	 public String batchAddTeacher(MultipartFile file,int collegeid) throws Exception{
 		 Transaction beginTransaction = HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();//业务开头
 	      if(!file.isEmpty()){         
 	            try {  
@@ -448,7 +448,7 @@ public class AcdemicDeanService {
 	                    in = file.getInputStream();
 	                    Workbook wb = null;
 	                    List<Teacher> list=new ArrayList<Teacher>();
-	                    College college=(new DaoImpl<College>()).find(College.class, (new GeneralService().getCurrentUserCollegeid()));
+	                    College college=(new DaoImpl<College>()).find(College.class, collegeid);
 	                    if (file.getOriginalFilename().toLowerCase().endsWith(".xlsx")) {
 	                    	wb = new XSSFWorkbook(in);
 						} else {

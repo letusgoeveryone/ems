@@ -6,6 +6,8 @@
 package com.letusgo.daoImp;
 
 import com.letusgo.model.College;
+import com.letusgo.model.Teacher;
+
 import java.util.Collection;
 import org.hibernate.Query;
 
@@ -19,6 +21,13 @@ public class CollegeDaoImp extends DaoImpl<College> implements com.letusgo.dao.C
     public void addCollege(College college) {
         
         getSession().save(college);
+    }
+    
+
+    public void addAllCollege(Collection<College> colleges){
+        for (College college : colleges) {
+            save(college);
+        }
     }
 
     @Override

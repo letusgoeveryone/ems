@@ -78,7 +78,7 @@ $(function() {
 			$.getJSON("getcollegecourse",
 					function(data) {
 						for (var i = 0, l = data.length; i < l; i++) {
-							$("#allcoursetable").append("<tr><td>"+ data[i]["sn"]+ "</td><td>"+ data[i]["number"] +"</td><td>"+ data[i]["courseName"] +"</td><td>"
+							$("#allcoursetable").append("<tr><td>"+ data[i]["id"]+ "</td><td>"+ data[i]["number"] +"</td><td>"+ data[i]["courseName"] +"</td><td>"
 								+ "<a href='#' onclick=\"settermcourse('"+ data[i]["id"]+ "')\">设置开课</a>"
 								+ "</td></tr>");
 							}

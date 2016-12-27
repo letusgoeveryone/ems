@@ -260,14 +260,16 @@ public class AcdemicDeanController {
 	
 	 @RequestMapping(value = "/batchaddcourse",method = RequestMethod.POST)
 	 public @ResponseBody String course_submit(HttpServletRequest request,@RequestParam("file") MultipartFile file) throws  Exception {
+		int collegeid=(new GeneralService().getCurrentUserCollegeid());
 		AcdemicDeanService acdemicDeanService=new AcdemicDeanService();
-		return acdemicDeanService.batchAddCourse(file);
+		return acdemicDeanService.batchAddCourse(file,collegeid);
 	  }
 	  
 	 @RequestMapping(value = "/batchaddteacher",method = RequestMethod.POST)
 	 public @ResponseBody String teacher_submit(HttpServletRequest request,@RequestParam("file") MultipartFile file) throws  Exception {
+		 int collegeid=(new GeneralService().getCurrentUserCollegeid());
 		 AcdemicDeanService acdemicDeanService=new AcdemicDeanService();
-		return acdemicDeanService.batchAddTeacher(file);
+		return acdemicDeanService.batchAddTeacher(file,collegeid);
 	  }
 	  
 	

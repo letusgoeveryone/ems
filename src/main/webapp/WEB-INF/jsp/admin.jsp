@@ -42,5 +42,23 @@
 		<table border="1px" cellPadding="0px" cellSpacing="0px" id="teachertable"></table> 
 	</div>
 	<script src="../js/admin.js"></script>
+	=================================================<br>
+	<div>
+	<h4>Excel批量新增学院</h4>
+	建议您先<a href="../templet/admin_college.xlsx" target="_blank">下载模板</a>，编辑完模板之后在这里选择上传，系统会从第二行（含）之后开始添加数据。<br>
+		<form method="POST" enctype="multipart/form-data" id="batchcollegeform">
+         	<input type="file" name="file" id="batchcollegefile"><br>
+        </form>
+        <button id="batchcollegebtn">批量增加课程</button>
+	</div>
+	=================================================<br>
+	<div>
+	<h4>Excel批量新增教师</h4>
+	建议您先<a href="../templet/admin_teacher.xlsx" target="_blank">下载模板</a>，编辑完模板之后在这里选择上传，系统会从第二行（含）之后开始添加数据。<br>
+		<form method="POST" enctype="multipart/form-data" id="batchteacherform">
+         	<input type="file" name="file" id="batchteacherfile"><br>
+			<button id="batchteacherbtn">批量增加教师</button>
+        </form>
+	</div>
 </body>
 </html>
