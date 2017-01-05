@@ -114,8 +114,11 @@ public class StudentService {
 	 * @return 学生对象
 	 */
 	public Student getStudentInfo(String sn) {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Transaction transaction = session.beginTransaction();
 		StudentDaoImp studentDaoImp = new StudentDaoImp();
 		Student std = studentDaoImp.getStudentBySn(sn);
+		transaction.commit();
 		return std;
 	}
 
@@ -127,46 +130,28 @@ public class StudentService {
 	 * @param 第二次输入的密码
 	 */
 	public void modifyPwdBySnAndPwd(String sn, String pw, String repw) {
-		Transaction beginTransaction = HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();// 业务开头
+		//Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		//Transaction transaction = session.beginTransaction();// 业务开头
 		StudentDaoImp studentDaoImp = new StudentDaoImp();
 		Student stu = new Student();
 		stu = getStudentInfo(sn);
-
 		stu.setPassword(repw);
 		studentDaoImp.updateStudent(stu);
-		beginTransaction.commit();// 业务结尾
+		//transaction.commit();// 业务结尾
 
 	}
 
 	/**
 	 * 个人信息的修改
-	 * 
-	 * @param 学生学号
-	 * @param 学生姓名
-	 * @param 学生年纪
-	 * @param 学生学院
-	 * @param 学生性别
-	 * @param 学生电话
-	 * @param 学生QQ
-	 * 
+	 *
+	 * @param Student对象
 	 */
-	public void modifyPwdBySnAndPwd(String sn, String name, String StudentGrade, String StudentCollege,
-			String StudentSex, String StudentTel, String StudentQq) {
+	public void modifyInfoBySn(Student student) {
 		Transaction beginTransaction = HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();// 业务开头
 		StudentDaoImp studentDaoImp = new StudentDaoImp();
-		Student std = studentDaoImp.getStudentBySn(sn);
-		College college = new College();
-		college.setName(StudentCollege);
-		std.setName(name);
-		// 学生年纪？？？
-		// TODO
-		// std.setStudentGrade(Integer.valueOf(StudentGrade));
+		// Student std = studentDaoImp.getStudentBySn(sn);
 
-		std.setCollege(college);
-		std.setSex(StudentSex.equals("男"));
-		std.setTel(StudentTel);
-		std.setQq(StudentQq);
-		studentDaoImp.updateStudent(std);
+		studentDaoImp.updateStudent(student);
 		beginTransaction.commit();// 业务结尾
 	}
 
@@ -205,11 +190,11 @@ public class StudentService {
 		Termcourse termcourse = (Termcourse) query.uniqueResult();
 		termcourse.getId();
 		System.out.println(termcourse.getId());
-		//TeacherDaoImp teacherDaoImp = new TeacherDaoImp();
+		// TeacherDaoImp teacherDaoImp = new TeacherDaoImp();
 		// 通过课程号获取教师号
 		// TODO
-		//String TecSn = CourseDaoImp.getTecsnByCourseId(scid);
-		//String TecSn = null;
+		// String TecSn = CourseDaoImp.getTecsnByCourseId(scid);
+		// String TecSn = null;
 		Teacher tec = termcourse.getTeacher();
 		return tec;
 	}

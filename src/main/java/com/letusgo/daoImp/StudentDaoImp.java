@@ -6,12 +6,15 @@
 package com.letusgo.daoImp;
 
 
+import com.letusgo.HibernateUtil.HibernateUtil;
 import com.letusgo.dao.StudentDao;
 import com.letusgo.model.Selectcourse;
 import com.letusgo.model.Student;
 import java.util.Collection;
 import java.util.LinkedList;
 import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  *
@@ -33,6 +36,8 @@ public class StudentDaoImp extends DaoImpl<Student> implements StudentDao{
 
     @Override
     public void updateStudent(Student student) {
+    	Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Transaction transaction = session.beginTransaction();// 业务开头
         if(student.getId() == null){
             Student istudent = getStudentBySn(student.getSn());
             int id = istudent.getId();
@@ -40,6 +45,7 @@ public class StudentDaoImp extends DaoImpl<Student> implements StudentDao{
             student.setId(id);
         }
         getSession().update(student);
+        transaction.commit();
     }
 
     @Override
