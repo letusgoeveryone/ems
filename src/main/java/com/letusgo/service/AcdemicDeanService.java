@@ -92,6 +92,7 @@ public class AcdemicDeanService {
 		Transaction beginTransaction = HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();//业务开头
 		Teacher teacher=new Teacher(sn, name, password);
 		teacher.setCollege(new DaoImpl<College>().find(College.class, collegeid));
+		teacher.setRoleid("1");
 		TeacherDaoImp teacherDaoImp= new TeacherDaoImp();
 		teacherDaoImp.addTeacher(teacher);
 		beginTransaction.commit();//业务结尾

@@ -67,12 +67,12 @@ public class LoginController {
 		String username= request.getParameter("username");
 		String password= request.getParameter("password");
 		String captcha= request.getParameter("captcha");
-		String curr_captcha= (String)request.getSession().getAttribute("captcha");
-		if (captcha.equalsIgnoreCase(curr_captcha)) {
+//		String curr_captcha= (String)request.getSession().getAttribute("captcha");
+//		if (captcha.equalsIgnoreCase(curr_captcha)) {
 			System.out.println(username);
 			System.out.println(password);
 			System.out.println(captcha);
-			System.out.println(curr_captcha);
+//			System.out.println(curr_captcha);
 			request.getSession().removeAttribute("captcha");
 			UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(username, password);
 			Transaction beginTransaction = HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();//业务开头
@@ -96,9 +96,9 @@ public class LoginController {
 	        }
 
 			return "Loginok";
-		}else {
-			return "CheckCodeError";
-		}
+//		}else {
+//			return "CheckCodeError";
+//		}
 	}
 
 	@RequestMapping("/createImage")
