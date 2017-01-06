@@ -1,0 +1,117 @@
+
+
+
+/*设置背景，宽度auto，图片在高度方向充满100%，图片居中，空白区的颜色设置为灰色*/
+
+body {
+    background: no-repeat;
+    background-size: auto 100%;
+    background-position: center;
+    background-color: #eee;
+    padding-bottom: 10px;
+}
+
+
+/*height=line-height使得footer中的内容上下居中*/
+
+footer {
+    background: #000;
+    opacity: 0.4;
+    text-align: center;
+    height: 100px;
+    line-height: 100px;
+    /*margin-bottom: 10px;*/
+}
+
+
+/*设置header中的图片位置和样式*/
+
+header {
+    background: #ccc;
+    padding: 0px 5px;
+    float: left;
+    height: 100px;
+    opacity: 0.6;
+}
+
+
+/*设置版权信息居中*/
+
+footer .copyright {
+    position: absolute;
+    left: 50%;
+    width: 300px;
+    margin-left: -150px;
+    text-align: center;
+    font-size: 1em;
+    font-family: Helvetica, 'Hiragino Sans GB', 'Microsoft Yahei', '微软雅黑', Arial, sans-serif;
+    color: white;
+}
+
+
+/*设置“登录”框的样式，并左右居中（left、width、margin-left相互配合）*/
+
+#login-container {
+    background: #ddd;
+    position: absolute;
+    left: 50%;
+    width: 410px;
+    margin-left: -205px;
+    opacity: 0.9;
+    border-radius: 5px;
+    border: 1px solid black;
+    box-shadow: 4px 4px 5px grey;
+    padding: 20px;
+    padding-top: 40px;
+}
+
+
+/*设置当输入错误时的提示信息，采用visibility是为了这些提示信息要占位*/
+
+label[id*=reminder] {
+    visibility: hidden;
+    color: Red;
+    text-align: left;
+    font-size: 0.8em;
+}
+
+
+/*设置“登录”框中的label文字分散对齐*/
+
+label[id*=label] {
+    width: 6.2em;
+    color: #000;
+    /*text-align: justify;*/
+/*    text-align:justify; 
+    text-justify:distribute-all-lines;*/
+    text-align-last: justify;
+}
+
+
+/*设置“登录”按钮的宽度*/
+
+button.btn {
+    width: 20.2em;
+}
+
+
+/*设置头部的“教学系统”这几个字*/
+
+header span {
+    font-size: 2em;
+    font-family: Helvetica, 'Hiragino Sans GB', 'Microsoft Yahei', '微软雅黑', Arial, sans-serif;
+    color: #0b3a83;
+    display: block;
+    float: right;
+    text-shadow: 2px 2px 5px #0b3a83;
+    padding-top: 1.5em;
+    padding-left: 0.5em;
+    padding-right: 1em;
+}
+
+
+/*base div用來存放网页的基地址，处于隐藏状态*/
+
+div.base {
+    display: none;
+}

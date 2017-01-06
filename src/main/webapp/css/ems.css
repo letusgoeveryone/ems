@@ -1,0 +1,10 @@
+/* 
+    Created on : 2017-1-6, 13:46:35
+    Author     : wht
+*/
+
+* {
+    /*去除所有元素的padding和margin*/
+    padding: 0;
+    margin: 0;
+}
