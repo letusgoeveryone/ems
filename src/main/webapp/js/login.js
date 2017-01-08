@@ -1,12 +1,12 @@
 function initLogin() {
-        var doc_height = $(document).height(); //获取文档窗口的高度
+        var doc_height = $(window).height(); //获取文档窗口的高度
         var footer_height = $("footer").height(); //获取底部footer的高度
         var body_height = doc_height - footer_height - 10; //计算body的高度
         //-10是为了让底部空出10个像素的边，配合body的padding-bottom的10px。
         //获取登录窗口的高度
         var login_container_height = $("#login-container").height();
         //设置body的高度
-        $(body).height(body_height);
+        $("#body").height(body_height);
         //设置登录窗口上下居中
         $("#login-container").css("margin-top", (body_height - login_container_height) / 2);
 
