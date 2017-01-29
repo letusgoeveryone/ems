@@ -40,6 +40,7 @@ $(function() {
 			}
 			;
 		});
+		
 	});
 	
 	$('#getallteacher')
@@ -115,6 +116,20 @@ $(function() {
                 }
             });
        }
+	});
+	
+	$('#addcollege').click(function() {
+		$.post("addcollege", {
+			collegename:$("#collegename").val(),
+			collegeterm:$("#collegeterm").val()
+		}, function(data) {
+			if (data == "true") {
+				alert("新增学院成功");
+			} else {
+				alert("新增学院失败");
+			}
+			;
+		});
 	});
 });
 
