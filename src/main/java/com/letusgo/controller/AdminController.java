@@ -57,6 +57,20 @@ public class AdminController {
 		return acdemicDeanService.addTeacher(sn, name, password,Integer.valueOf(collegeid));
 	}
 	
+	/** 新增学院
+	  * 获取参数collegename,collegeterm
+	  * 返回值true,false
+	  * 可能异常：UnsupportedEncodingException
+	  * */
+	@RequestMapping("/addcollege")
+	@ResponseBody
+	public String addCollege(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		request.setCharacterEncoding("UTF-8");
+		String collegename= request.getParameter("collegename");
+		String collegeterm= request.getParameter("collegeterm");
+		AdminService adminService=new AdminService();
+		return adminService.addCollege(collegename, collegeterm);
+	}	
 	 /*删除教师
 	  * 获取参数sn
 	  * 返回值true,false
